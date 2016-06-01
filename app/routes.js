@@ -5,14 +5,10 @@
 
 // grab the nerd model we just created
 var Articles = require('./models/articles');
+var Users = require('./models/users');
 
 module.exports = function(app) {
 
-    // server routes ===========================================================
-    // handle things like api calls
-    // authentication routes
-
-    // sample api route
     app.get('/api/blog', function(req, res) {
         Articles.find(function(err, articles) {
             if (err) {
@@ -24,23 +20,27 @@ module.exports = function(app) {
     });
 
     app.get('/api/blog/article/:idA', function(req, res) {
-        Articles.findOne({idA: req.params.idA},function(err, article) {
+        Articles.findOne({'idA': parseInt(req.params.idA)},function(err, article) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
-            console.log('id : ' + req.params.idA);
-            //res.json(article);
+            //console.log('id : ' + req.params.idA);
+            res.json(article);
         });
     });
 
-    // route to handle creating goes here (app.post)
-    // route to handle delete goes here (app.delete)
-
-    // frontend routes =========================================================
-    // route to handle all angular requests
+    app.get('/api/inscription/', function(req, res) {
+        Users.save(req,function(err, user) {
+            if (err) {
+                res.send(err);
+                console.log(err);
+            }
+            //res.json(user);
+        });
+    });
 
     app.get('*', function(req, res) {
-        res.sendfile('./public/index.html'); // load our public/index.html file
+        res.sendfile('./public/index.html');
     });
 };

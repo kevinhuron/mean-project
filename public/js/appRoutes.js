@@ -18,6 +18,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/blog/article/:idA', {
             templateUrl: 'views/article.html',
             controller: 'ArticleController'
+        })
+
+        .when('/inscription', {
+            templateUrl: 'views/inscription.html',
+            controller: 'InscriptionController'
         });
 
     $locationProvider.html5Mode(true);

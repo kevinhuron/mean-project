@@ -1,15 +1,11 @@
 /**
  * Created by kevinhuron on 01/06/2016.
  */
-/**
- * Created by kevinhuron on 25/05/2016.
- */
-// public/js/services/NerdService.js
 angular.module('ArticleService', []).factory('Article', ['$http', function($http) {
     return {
         // call to get all nerds
         get : function(id) {
-            console.log('idA: ' + id);
+            //console.log('idA: ' + id);
             return $http.get('/api/blog/article/' + id);
         },
 
