@@ -9,10 +9,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'MainController'
         })
 
-        // nerds page that will use the NerdController
-        .when('/nerds', {
-            templateUrl: 'views/nerd.html',
-            controller: 'NerdController'
+        // blog page that will use the NerdController
+        .when('/blog', {
+            templateUrl: 'views/blog.html',
+            controller: 'BlogController'
         });
     $locationProvider.html5Mode(true);
 }]);

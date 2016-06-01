@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <base href="/">
-    <title>Starter Node and Angular</title>
+    <title>Super Blog</title>
     <!-- CSS -->
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
@@ -13,21 +13,21 @@
     <script src="libs/angular-route/angular-route.min.js"></script>
     <!-- ANGULAR CUSTOM -->
     <script src="js/controllers/MainCtrl.js"></script>
-    <script src="js/controllers/NerdCtrl.js"></script>
-    <script src="js/services/NerdService.js"></script>
+    <script src="js/controllers/BlogCtrl.js"></script>
+    <script src="js/services/BlogService.js"></script>
     <script src="js/appRoutes.js"></script>
     <script src="js/app.js"></script>
 </head>
-<body ng-app="mean" ng-controller="NerdController">
+<body ng-app="mean" ng-controller="BlogController">
 
     <!-- HEADER -->
     <nav class="navbar navbar-inverse" style="border-radius: 0">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Stencil: Node and Angular</a>
+            <a class="navbar-brand" href="/">Home</a>
         </div>
         <!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
         <ul class="nav navbar-nav">
-            <li><a href="/nerds">Nerds</a></li>
+            <li><a href="/blog">Blog</a></li>
         </ul>
     </nav>
     <div class="container">

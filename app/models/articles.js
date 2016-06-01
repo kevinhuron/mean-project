@@ -1,7 +1,7 @@
 /**
  * Created by kevinhuron on 25/05/2016.
  */
-// app/models/nerd.js
+// app/models/articles.js
 // grab the mongoose module
 var mongoose = require('mongoose');
 
@@ -29,4 +29,4 @@ var articlesShcema = new articles({
     idU             : Number
 });
 
-module.exports = mongoose.model('Articles', articlesShcema);
+module.exports = mongoose.model('mean', articlesShcema, 'Articles');
