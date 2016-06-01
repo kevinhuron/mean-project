@@ -23,16 +23,14 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/api/blog/article/', function(req, res) {
-        console.log('shfghjebvfiu');
-        Articles.findOne({idA: res},function(err, article) {
+    app.get('/api/blog/article/:idA', function(req, res) {
+        Articles.findOne({idA: req.params.idA},function(err, article) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
-
-            console.log('id : ' + res.idA);
-            //res.json(article); // return all nerds in JSON format
+            console.log('id : ' + req.params.idA);
+            //res.json(article);
         });
     });
 

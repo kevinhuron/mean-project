@@ -5,8 +5,8 @@
  * Created by kevinhuron on 25/05/2016.
  */
 angular.module('ArticleCtrl', ['ArticleService']).controller('ArticleController', function($scope, Article) {
-    /*Article.get().then(function(articles) {
-        var allArticles = articles.data;
-        $scope.allArticles = allArticles;
-    });*/
+    Article.get().then(function(oneArticle) {
+        var article = oneArticle.data;
+        $scope.allArticles = article;
+    });
 });
