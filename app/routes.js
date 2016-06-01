@@ -14,15 +14,25 @@ module.exports = function(app) {
 
     // sample api route
     app.get('/api/blog', function(req, res) {
-        // use mongoose to get all nerds in the database
-        Articles.find(function(err, article) {
-            // if there is an error retrieving, send the error.
-            // nothing after res.send(err) will execute
+        Articles.find(function(err, articles) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
-            res.json(article); // return all nerds in JSON format
+            res.json(articles); // return all nerds in JSON format
+        });
+    });
+
+    app.get('/api/blog/article/', function(req, res) {
+        console.log('shfghjebvfiu');
+        Articles.findOne({idA: res},function(err, article) {
+            if (err) {
+                res.send(err);
+                console.log(err);
+            }
+
+            console.log('id : ' + res.idA);
+            //res.json(article); // return all nerds in JSON format
         });
     });
 
@@ -31,9 +41,7 @@ module.exports = function(app) {
 
     // frontend routes =========================================================
     // route to handle all angular requests
-    /*app.get('/nerds', function(req, res) {
-     res.sendfile('./public/views/nerd.html');
-     });*/
+
     app.get('*', function(req, res) {
         res.sendfile('./public/index.html'); // load our public/index.html file
     });

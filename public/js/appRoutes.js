@@ -13,6 +13,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/blog', {
             templateUrl: 'views/blog.html',
             controller: 'BlogController'
+        })
+
+        .when('/blog/article/:idA', {
+            templateUrl: 'views/article.html',
+            controller: 'ArticleController'
         });
     $locationProvider.html5Mode(true);
 }]);
