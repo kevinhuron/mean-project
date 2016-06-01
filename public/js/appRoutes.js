@@ -19,5 +19,6 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/article.html',
             controller: 'ArticleController'
         });
+
     $locationProvider.html5Mode(true);
 }]);

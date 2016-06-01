@@ -9,6 +9,7 @@ angular.module('ArticleService', []).factory('Article', ['$http', function($http
     return {
         // call to get all nerds
         get : function(id) {
+            console.log('idA: ' + id);
             return $http.get('/api/blog/article/' + id);
         },
 
