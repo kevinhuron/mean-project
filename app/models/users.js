@@ -1,9 +1,6 @@
 /**
  * Created by kevinhuron on 01/06/2016.
  */
-/**
- * Created by kevinhuron on 25/05/2016.
- */
 // app/models/articles.js
 // grab the mongoose module
 var mongoose = require('mongoose');
@@ -32,4 +29,4 @@ var usersShcema = new users({
     accessLvl   : Number
 });
 
-module.exports = mongoose.model('mean', usersShcema, 'User');
+module.exports = mongoose.model('User', usersShcema );

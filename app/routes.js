@@ -31,6 +31,7 @@ module.exports = function(app) {
     });
 
     app.get('/api/inscription/', function(req, res) {
+        console.log(req);
         Users.save(req,function(err, user) {
             if (err) {
                 res.send(err);
