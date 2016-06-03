@@ -22,8 +22,15 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
         .when('/inscription', {
             templateUrl: 'views/inscription.html',
-            controller: 'InscriptionController'
-        });
+            controller: 'UsersController'
+        })
+
+        .when('/404', {
+            templateUrl: 'views/404.html'
+            //controller: 'UsersController'
+        })
+
+        .otherwise({redirectTo: '/404'});
 
     $locationProvider.html5Mode(true);
 }]);

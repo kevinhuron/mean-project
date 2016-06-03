@@ -9,5 +9,6 @@ angular.module('mean', [
     'BlogService',
     'ArticleCtrl',
     'ArticleService',
-    'InscriptionCtrl'
+    'UsersCtrl',
+    'UsersService'
 ]);

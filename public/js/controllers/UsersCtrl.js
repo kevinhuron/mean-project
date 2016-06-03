@@ -1,7 +1,7 @@
 /**
  * Created by kevinhuron on 01/06/2016.
  */
-angular.module('InscriptionCtrl', ['InscriptionService']).controller('InscriptionController', function($scope, inscription) {
+angular.module('UsersCtrl', ['UsersService']).controller('UsersController', function($scope, user) {
     /*Article.get($routeParams.idA).then(function(oneArticle) {
         var article = oneArticle.data;
         $scope.allArticles = article;
@@ -17,6 +17,8 @@ angular.module('InscriptionCtrl', ['InscriptionService']).controller('Inscriptio
         $scope.lastnameRequired = '';
         $scope.mailRequired = '';
         $scope.passwordRequired = '';
+        $scope.registrationFailed = '';
+        $scope.registrationSuccess ='';
         if (!$scope.user.firstname || !$scope.user.lastname || !$scope.user.mail || !$scope.user.password) {
             if (!$scope.user.firstname) {
                 $scope.firstnameRequired = 'Votre Nom est requis';
@@ -32,7 +34,14 @@ angular.module('InscriptionCtrl', ['InscriptionService']).controller('Inscriptio
             }
         } else {
             userData = {"firstname":$scope.user.firstname, "lastname":$scope.user.lastname, "mail":$scope.user.mail, "passwd":$scope.user.password};
-            inscription.create(userData);
+            user.create(userData).then(function(registr) {
+                var registration = registr.data;
+                if (registration == "NOK") {
+                    $scope.registrationFailed = 'Votre inscription à échoué ! Vérifié vos informations (Il se peut que votre email soit déjà dans notre base)';
+                } else {
+                    $scope.registrationSuccess = 'Votre inscription à bien été prise en compte !';
+                }
+            });
         }
     };
         /*inscription.create($scope.user)

@@ -19,14 +19,14 @@ var mongoose = require('mongoose');
 //var db = require('../../config/db');
 // define our nerd model
 // module.exports allows us to pass this to other files when it is called
-var users = mongoose.Schema;
-var usersShcema = new users({
+var User = mongoose.Schema;
+var usersShcema = new User({
     idU         : Number,
     lastname    : String,
     firstname   : String,
     mail        : String,
     passwd      : String,
-    accessLvl   : Number
+    accessLvl   : String
 });
 
 module.exports = mongoose.model('User', usersShcema );

@@ -3,9 +3,8 @@
  */
 // app/routes.js
 
-// grab the nerd model we just created
 var Articles = require('./models/articles');
-var Users = require('./models/users');
+var User = require('./models/User');
 
 module.exports = function(app) {
 
@@ -30,14 +29,31 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/api/inscription/', function(req, res) {
-        console.log(req);
-        Users.save(req,function(err, user) {
+    app.post('/api/inscription/', function(req, res) {
+        var user = {
+            'lastname':     req.body.lastname,
+            'firstname':    req.body.firstname,
+            'mail':         req.body.mail,
+            'passwd':       req.body.passwd,
+            'accessLvl':    "abonne"
+        };
+        // validation
+        User.findOne({ mail: req.body.mail }, function (err, userfind) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
-            //res.json(user);
+            if (userfind) { // mail already exists
+                res.json("NOK");
+            } else {
+                User.create(user,function(err, user) {
+                    if (err) {
+                        res.send(err);
+                        console.log(err);
+                    }
+                    res.json(user);
+                });
+            }
         });
     });
 
