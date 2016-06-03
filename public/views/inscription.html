@@ -1,28 +1,10 @@
 <div class="col-lg-12">
-    <div class="jumbotron" >
+    <div class="jumbotron" style="position: relative">
         <h1 class="text-center">Inscription</h1>
         <h6 class="text-center">Veuillez saisir les données suivante pour pouvoir valider votre inscription</h6>
         <div class="alert alert-success text-center" role="alert" ng-show="registrationSuccess">{{ registrationSuccess }}</div>
         <div class="alert alert-danger text-center" role="alert" ng-show="registrationFailed">{{ registrationFailed }}</div>
-        <div class="loader" ng-show="loader">
-            <span>L</span>
-            <span>O</span>
-            <span>A</span>
-            <span>D</span>
-            <span>I</span>
-            <span>N</span>
-            <span>G</span>
-
-            <div class="covers">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <div class="loader-xbox"></div>
         <br/>
         <form class="form-horizontal" >
             <div class="form-group">
@@ -61,4 +43,17 @@
             </div>
         </form>
     </div>
+    <div id="pluswrap" ng-show="loader">
+        <div class="plus">
+            <div align="center" class="fond">
+                <div class="contener_general">
+                    <div class="contener_mixte"><div class="ballcolor ball_1">&nbsp;</div></div>
+                    <div class="contener_mixte"><div class="ballcolor ball_2">&nbsp;</div></div>
+                    <div class="contener_mixte"><div class="ballcolor ball_3">&nbsp;</div></div>
+                    <div class="contener_mixte"><div class="ballcolor ball_4">&nbsp;</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
