@@ -1,3 +1,52 @@
+html,
+body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+.link-article-home:hover {
+    text-decoration: none;
+    color: #000;
+}
+.link-article-home {
+    color: #000;
+}
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin: 0 auto -73px;
+    /* Pad bottom by footer height */
+    padding: 0 0 73px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+    height: 73px;
+    border-color: rgba(0, 0, 0, .7);
+    background-color: rgba(0, 0, 0, .7);
+    margin: 0;
+    color: white;
+}
+
+#footer .list-inline>li>a {
+    color: white;
+    font-weight: bold;
+    padding: 10px 15px 10px;
+    margin-top: 5px;
+}
+#footer .list-inline>li>a:hover {
+    color: #7E97F7;
+    background: #353549;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.footer-container {
+    padding-top: 20px;
+}
+
 .hover-panel:hover{
     padding: 0;
     border-radius: 4px;
@@ -135,9 +184,19 @@
 .navbar-default .navbar-brand {
     color: white;
 }
+.navbar-default .navbar-brand:hover {
+    color: #7E97F7;
+}
 .navbar-default .navbar-nav>li>a {
     color: white;
     font-weight: bold;
+    padding: 10px 15px 10px;
+    margin-top: 5px;
+}
+.navbar-default .navbar-nav>li>a:hover {
+    color: #7E97F7;
+    background: #353549;
+    border-radius: 10px;
 }
 .navbar-default {
     border-color: rgba(0, 0, 0, .7);
@@ -152,4 +211,83 @@
 }
 .carousel {
     width:100%;
+}
+
+.bg-img {
+    background-image: url('../img/img-3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 300px;
+}
+
+.title-blog {
+    margin: auto;
+    line-height: 300px;
+    color: #FFF;
+    font-size: 100px;
+    text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F;
+}
+
+/* HOME PAGE ARTICLE */
+.row{
+    margin-left: auto;
+    margin-right: auto;
+}
+/* image thumbnail */
+.thumb {
+    display: block;
+    width: 100%;
+    margin: 0;
+}
+
+/* Style to article Author */
+.by-author {
+    font-style: italic;
+    line-height: 1.3;
+    color: #aab6aa;
+}
+
+/* Main Article [Module]
+-------------------------------------
+* Featured Article Thumbnail
+* have a image and a text title.
+*/
+.featured-article {
+    width: 482px;
+    height: 350px;
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.featured-article .block-title {
+    /* Position & Box Model */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    /* background */
+    background: rgba(0,0,0,0.7);
+    /* Width/Height */
+    padding: .5em;
+    width: 100%;
+    /* Text color */
+    color: #fff;
+}
+
+.featured-article .block-title h2 {
+    margin: 0;
+}
+
+/* Featured Articles List [BS3]
+--------------------------------------------
+* show the last 3 articles post
+*/
+
+.main-list {
+    padding-left: .5em;
+}
+
+.main-list .media {
+    padding-bottom: 1.1em;
+    border-bottom: 1px solid #e8e8e8;
 }

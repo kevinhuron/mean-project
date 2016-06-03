@@ -38,9 +38,107 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<br/>
-<div class="container">
-    <div class="jumbotron text-center">
-        <h1>Home Page 4 Life</h1>
+<div class="container-fluid jumbotron text-center">
+    <h1 style="text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F, 0 0 0.2em #87F;">Super Blog</h1>
+    <h3>Découvrez, postez, réagissez, commentez les meilleures articles du Web</h3>
+    <br/>
+    <div class="col-lg-12">
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <i class="glyphicon glyphicon-star-empty" style="font-size: 50px;"></i>
+                </div>
+                <div class="panel-footer">Articles les mieux notés du Web</div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <i class="glyphicon glyphicon-comment" style="font-size: 50px;"></i>
+                </div>
+                <div class="panel-footer">Articles les plus dicutés du Web</div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <i class="glyphicon glyphicon-thumbs-up" style="font-size: 50px;"></i>
+                </div>
+                <div class="panel-footer">Articles les mieux aimés du Web</div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <i class="glyphicon glyphicon-stats" style="font-size: 50px;"></i>
+                </div>
+                <div class="panel-footer">Publications constantes et toujours à la une</div>
+            </div>
+        </div>
     </div>
 </div>
+<div class="container-fluid">
+    {{lastarticles}}
+    <div class=" text-center">
+        <h1>Les derniers articles</h1>
+        <p>Voici les derniers articles publiés sur notre blog</p>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-lg-5">
+            <div class="featured-article">
+                <a href="/blog/article/{{ id1 }}">
+                    <img ng-src="{{img1}}" alt="" class="thumb" style="width: 482px;height: 350px;">
+                </a>
+                <div class="block-title">
+                    <h2>{{ titleOne }}</h2>
+                    <p><small>{{ descOne }}</small></p>
+                    <p class="by-author"><small><i class="glyphicon glyphicon-user"></i> {{ authorOne }} /
+                        <i class="glyphicon glyphicon-calendar"></i> {{ dateOne }}
+                    </small></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-lg-7">
+            <ul class="media-list main-list">
+                <li class="media">
+                    <a class="pull-left" href="/blog/article/{{ id2 }}">
+                        <img class="media-object" ng-src="{{img2}}" alt="..." style="width: 150px;height: 90px;">
+                    </a>
+                    <div class="media-body">
+                        <a class="link-article-home" href="/blog/article/{{ id2 }}"><h4 class="media-heading">{{ titleTwo }}</h4></a>
+                        <p class="by-author"><i class="glyphicon glyphicon-user"></i> {{ authorTwo }} /
+                            <i class="glyphicon glyphicon-calendar"></i> {{ dateTwo }}
+                        </p>
+                        <p><small>{{ descTwo }}</small></p>
+                    </div>
+                </li>
+                <li class="media">
+                    <a class="pull-left" href="/blog/article/{{ id3 }}">
+                        <img class="media-object" ng-src="{{img3}}" alt="..."  style="width: 150px;height: 90px;">
+                    </a>
+                    <div class="media-body">
+                        <a class="link-article-home" href="/blog/article/{{ id3 }}"><h4 class="media-heading">{{ titleTree }}</h4></a>
+                        <p class="by-author"><i class="glyphicon glyphicon-user"></i> {{ authorTree }} /
+                            <i class="glyphicon glyphicon-calendar"></i> {{ dateTree }}
+                        </p>
+                        <p><small>{{ descTree }}</small></p>
+                    </div>
+                </li>
+                <li class="media">
+                    <a class="pull-left" href="/blog/article/{{ id4 }}">
+                        <img class="media-object" ng-src="{{img4}}" alt="..."  style="width: 150px;height: 90px;">
+                    </a>
+                    <div class="media-body">
+                        <a class="link-article-home" href="/blog/article/{{ id4 }}"><h4 class="media-heading">{{ titleFour }}</h4></a>
+                        <p class="by-author"><i class="glyphicon glyphicon-user"></i> {{ authorFour }} /
+                            <i class="glyphicon glyphicon-calendar"></i> {{ dateFour }}
+                        </p>
+                        <p><small>{{ descFour }}</small></p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+

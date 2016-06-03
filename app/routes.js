@@ -7,17 +7,29 @@ var Articles = require('./models/articles');
 var User = require('./models/User');
 
 module.exports = function(app) {
-
+    /** All article in blog page **/
     app.get('/api/blog', function(req, res) {
         Articles.find(function(err, articles) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
-            res.json(articles); // return all nerds in JSON format
+            res.json(articles);
         });
-    });
+    }); /** get on /api/blog **/
 
+    /** 4 last articles in home page **/
+    app.get('/api/home/article', function(req, res) {
+        Articles.find().sort([['idA', -1]]).limit(4).exec(function(err, articles) {
+            if (err) {
+                res.send(err);
+                console.log(err);
+            }
+            res.json(articles);
+        });
+    }); /** get on /api/home/article **/
+
+    /** one article in article page **/
     app.get('/api/blog/article/:idA', function(req, res) {
         Articles.findOne({'idA': parseInt(req.params.idA)},function(err, article) {
             if (err) {
@@ -27,8 +39,9 @@ module.exports = function(app) {
             //console.log('id : ' + req.params.idA);
             res.json(article);
         });
-    });
+    }); /** get on /api/blog/article/:id **/
 
+    /** inscription user **/
     app.post('/api/inscription/', function(req, res) {
         var user = {
             'lastname':     req.body.lastname,
@@ -55,7 +68,7 @@ module.exports = function(app) {
                 });
             }
         });
-    });
+    }); /** post on /api/inscription/ **/
 
     app.get('*', function(req, res) {
         res.sendfile('./public/index.html');

@@ -7,6 +7,8 @@
     <title>Super Blog</title>
     <!-- CSS -->
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="libs/bootstrap-social/bootstrap-social.css">
     <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
     <!-- JS -->
     <script src="libs/jquery/dist/jquery.min.js"></script>
@@ -20,6 +22,7 @@
     <script src="js/controllers/UsersCtrl.js"></script>
     <script src="js/services/BlogService.js"></script>
     <script src="js/services/ArticleService.js"></script>
+    <script src="js/services/MainService.js"></script>
     <script src="js/services/UsersService.js"></script>
     <script src="js/appRoutes.js"></script>
     <script src="js/app.js"></script>
@@ -27,6 +30,7 @@
 <body ng-app="mean" ><!-- ng-controller="BlogController" -->
 
     <!-- HEADER -->
+<div id="wrap">
     <nav class="navbar navbar-default navbar-fixed-top" style="border-radius: 0">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -54,9 +58,37 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-
-        <!-- ANGULAR DYNAMIC CONTENT -->
-        <div ng-view></div>
-
+    <!-- ANGULAR DYNAMIC CONTENT -->
+    <div ng-view></div>
+</div>
+    <footer id="footer">
+        <div class="container footer-container">
+            <div class="col-lg-12">
+                <div class="col-lg-8">
+                    <ul class="list-inline">
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-github">
+                            <span class="fa fa-github"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-linkedin">
+                            <span class="fa fa-linkedin"></span>
+                        </a>
+                        <li><a href="/"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                        <li><a href="/blog"><i class="glyphicon glyphicon-th-list"></i> Blog</a></li>
+                        <li><a href="/inscription"><i class="glyphicon glyphicon-log-in"></i>&nbsp; Inscription</a></li>
+                        <li><a href="/connexion"><i class="glyphicon glyphicon-user"></i> Connexion</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 text-right ">
+                    <strong>&copy; Copyright SUPER BLOG</strong>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

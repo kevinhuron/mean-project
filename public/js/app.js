@@ -10,5 +10,6 @@ angular.module('mean', [
     'ArticleCtrl',
     'ArticleService',
     'UsersCtrl',
-    'UsersService'
+    'UsersService',
+    'MainService'
 ]);

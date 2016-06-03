@@ -26,7 +26,8 @@ var articlesShcema = new Articles({
     shortDescA      : String,
     longDescA       : String,
     contentA        : String,
-    idU             : Number,
+    date            : Date,
+    img             : String,
     author          : [{
         lastname    : String,
         firstname   : String,
