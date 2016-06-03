@@ -1,7 +1,7 @@
 /**
  * Created by kevinhuron on 01/06/2016.
  */
-angular.module('UsersCtrl', ['UsersService']).controller('UsersController', function($scope, user) {
+angular.module('UsersCtrl', ['UsersService']).controller('UsersController', function($scope, user, cfpLoadingBar) {
     /*Article.get($routeParams.idA).then(function(oneArticle) {
         var article = oneArticle.data;
         $scope.allArticles = article;
@@ -13,6 +13,7 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
     $scope.user = {};
     var userData;
     $scope.processForm = function() {
+        cfpLoadingBar.start();
         $scope.firstnameRequired = '';
         $scope.lastnameRequired = '';
         $scope.mailRequired = '';
@@ -50,6 +51,7 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
                 }
             });
         }
+        cfpLoadingBar.complete();
     };
         /*inscription.create($scope.user)
 

@@ -1,8 +1,9 @@
 /**
  * Created by kevinhuron on 25/05/2016.
  */
-angular.module('MainCtrl', ['MainService']).controller('MainController', function($scope, LastArticle) {
+angular.module('MainCtrl', ['MainService']).controller('MainController', function($scope, LastArticle, cfpLoadingBar) {
     LastArticle.get().then(function(articles) {
+        cfpLoadingBar.start();
         /** ID **/
         $scope.id1 = articles.data[0]['idA'];
         $scope.id2 = articles.data[1]['idA'];
@@ -33,6 +34,7 @@ angular.module('MainCtrl', ['MainService']).controller('MainController', functio
         $scope.img2 = 'img/article/'+articles.data[1]['img'];
         $scope.img3 = 'img/article/'+articles.data[2]['img'];
         $scope.img4 = 'img/article/'+articles.data[3]['img'];
+        cfpLoadingBar.complete();
     });
     $scope.image1 = 'img/img-1.jpg';
     $scope.image2 = 'img/img-2.jpg';

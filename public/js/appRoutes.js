@@ -1,9 +1,13 @@
 /**
  * Created by kevinhuron on 25/05/2016.
  */
-angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    $routeProvider
-    // home page
+angular.module('appRoutes', ['angular-loading-bar']).config(['$routeProvider', '$locationProvider', 'cfpLoadingBarProvider',
+    function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeBar = true;
+        cfpLoadingBarProvider.includeSpinner = false;
+        $routeProvider
+
+        // home page
         .when('/', {
             templateUrl: 'views/home.html',
             controller: 'MainController'
@@ -32,5 +36,5 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
         .otherwise({redirectTo: '/404'});
 
-    $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
 }]);

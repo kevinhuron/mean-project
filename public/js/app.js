@@ -11,5 +11,6 @@ angular.module('mean', [
     'ArticleService',
     'UsersCtrl',
     'UsersService',
-    'MainService'
+    'MainService',
+    'cfp.loadingBar'
 ]);

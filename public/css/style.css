@@ -291,3 +291,15 @@ body {
     padding-bottom: 1.1em;
     border-bottom: 1px solid #e8e8e8;
 }
+
+/*
+ * override the default CSS as an example
+ */
+
+#loading-bar .bar {
+    background: #87F;
+}
+#loading-bar .peg {
+    box-shadow: 0 0 10px #87F, 0 0 5px #87F;
+}
+
