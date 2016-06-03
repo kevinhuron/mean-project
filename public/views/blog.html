@@ -1,13 +1,16 @@
-<div class="col-lg-12">
-    <h1 class="text-center">BLOG</h1>
-    <div ng-repeat="article in allArticles" class="col-lg-6 hover-panel">
-        <a href="/blog/article/{{ article.idA }}" class="no-underline">
-            <div class="panel panel-info">
-                <div class="panel-heading text-center" style="font-size: 30px">{{ article.titleA }}</div>
-                <div class="panel-body text-center">
-                    <p>{{ article.longDescA }}</p>
+<div style="margin-top: 80px"></div>
+<div class="container">
+    <div class="col-lg-12">
+        <h1 class="text-center">BLOG</h1>
+        <div ng-repeat="article in allArticles" class="col-lg-6 hover-panel">
+            <a href="/blog/article/{{ article.idA }}" class="no-underline">
+                <div class="panel panel-info">
+                    <div class="panel-heading text-center" style="font-size: 30px">{{ article.titleA }}</div>
+                    <div class="panel-body text-center">
+                        <p>{{ article.longDescA }}</p>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
 </div>
