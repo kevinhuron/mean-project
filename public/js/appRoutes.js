@@ -29,6 +29,11 @@ angular.module('appRoutes', ['angular-loading-bar']).config(['$routeProvider', '
             controller: 'UsersController'
         })
 
+        .when('/login', {
+            templateUrl: 'views/login.html',
+            controller: 'UsersController'
+        })
+
         .when('/404', {
             templateUrl: 'views/404.html'
             //controller: 'UsersController'

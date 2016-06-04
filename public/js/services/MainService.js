@@ -5,7 +5,6 @@ angular.module('MainService', []).factory('LastArticle', ['$http', function($htt
     return {
         // call to get all nerds
         get : function() {
-            //console.log('idA: ' + id);
             return $http.get('/api/home/article/');
         },
 

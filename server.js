@@ -6,6 +6,11 @@ var app             = express();
 var bodyParser      = require('body-parser');
 var methodOverride  = require('method-override');
 var mongoose        = require('mongoose');
+var passport        = require('passport');
+var flash           = require('connect-flash');
+var session         = require('express-session');
+var cookieParser    = require('cookie-parser');
+var morgan          = require('morgan');
 
 /* ================================================= */
 /* ======== Config DB file ======== */
@@ -17,6 +22,12 @@ var port = process.env.PORT || 8080;
 // connect to our mongoDB database
 // (uncomment after you enter in your own credentials in config/db.js)
 mongoose.connect(db.url);
+
+require('./config/passport')(passport);
+
+app.use(morgan('dev'));
+
+app.use(cookieParser());
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -34,10 +45,24 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public'));
 
+// required for passport
+app.use(session({
+    secret: 'appsecret',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        secure: true
+    }
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+
 /* ================================================= */
 /* ======== Route ======== */
 /* ================================================= */
-require('./app/routes')(app); // configure our routes
+require('./app/routes')(app, passport); // configure our routes
 
 /* ================================================= */
 /* ======== Start APP at http://localhost:8080 ===== */

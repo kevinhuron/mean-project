@@ -29,13 +29,12 @@
                                 <div class="form-group">
                                         <input type="email" ng-model="user.mail" class="form-control" id="mail" name="mail" placeholder="Email...">
                                         <span class="help-block alert-danger" ng-show="mailRequired">{{ mailRequired }}</span>
-
                                 </div>
                                 <div class="form-group">
                                         <input type="password" ng-model="user.password" class="form-control" name="password" id="password" placeholder="Password...">
                                         <span class="help-block alert-danger" ng-show="passwordRequired">{{ passwordRequired }}</span>
                                 </div>
-                                <button type="submit" class="btn" ng-click="processForm(user)">Je valide !</button>
+                                <button type="submit" class="btn" ng-click="processInscription(user)">Je valide !</button>
                             </form>
                         </div>
                     </div>
