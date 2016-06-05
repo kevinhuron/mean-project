@@ -8,9 +8,9 @@ angular.module('UsersService', []).factory('user', ['$http', function($http) {
             return $http.get('/api/blog/article/' + id);
         },
 
-        log : function() {
+        log : function(logData) {
             //console.log('idA: ' + id);
-            return $http.post('/api/login/');
+            return $http.post('/api/login', logData);
         },
 
         create : function(userData) {

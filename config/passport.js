@@ -10,10 +10,14 @@ module.exports = function(passport) {
         done(null, user.mail);
         //console.log(user);
     });
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+    passport.deserializeUser(function(mail, done) {
+        User.findOne({ 'mail' :  mail },
+            function(err, user) {
+                done(err, user);
+            });
+        /*User.findById(id, function(err, user) {
             done(err, user);
-        });
+        });*/
     });
     /** LOCAL SIGNUP **/
     passport.use('local-signup', new LocalStrategy({
@@ -60,13 +64,38 @@ module.exports = function(passport) {
     );
     /** END LOCAL SIGNUP **/
 
+    /** LOCAL LOGIN **/
+    passport.use('local-login', new LocalStrategy({
+            usernameField : 'mail',
+            passwordField : 'passwd',
+            passReqToCallback : true
+        },
+        function(req, mail, passwd, done) {
+            User.findOne({ 'mail' :  mail },
+                function(err, user) {
+                    if (err)
+                        return done(err);
+                    /** Username does not exist **/
+                    if (!user){
+                        console.log('User Not Found with mail ' + mail);
+                        return done(null, false, req.flash('message', 'User Not found.'));
+                    }
+                    /** User exists but wrong password **/
+                    if (!user.validPassword(passwd)){
+                        console.log('Invalid Password');
+                        return done(null, false, req.flash('message', 'Invalid Password'));
+                    }
+                    return done(null, user);
+                });
+    }));
+    /** END LOCAL LOGIN **/
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================
     // we are using named strategies since we have one for login and one for signup
     // by default, if there was no name, it would just be called 'local'
 
-    passport.use('local-login', new LocalStrategy({
+    /*passport.use('local-login', new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
             usernameField : 'mail',
             passwordField : 'passwd',
@@ -95,5 +124,5 @@ module.exports = function(passport) {
                 return done(null, user);
             });
 
-        }));
+        }));*/
 };

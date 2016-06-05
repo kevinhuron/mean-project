@@ -6,6 +6,7 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
     $scope.user = {};
     $scope.usr = {};
     var userData;
+    var logData;
     $scope.processInscription = function() {
         cfpLoadingBar.start();
         $scope.firstnameRequired = '';
@@ -35,6 +36,7 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
                     $scope.user = null;
                 } else {
                     $scope.registrationFailed = 'Votre inscription à échoué ! Vérifié vos informations (Il se peut que votre email soit déjà dans notre base)';
+                    $scope.user = null;
                 }
             });
         }
@@ -47,6 +49,8 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
         cfpLoadingBar.start();
         $scope.mailRequired = '';
         $scope.passwordRequired = '';
+        $scope.loginFailed = '';
+        $scope.loginSuccess ='';
         if (!$scope.usr.mail || !$scope.usr.passwd) {
             if (!$scope.usr.mail) {
                 $scope.mailRequired = 'Votre mail est requis pour vous connecter';
@@ -56,14 +60,16 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
             }
         } else {
             logData = {"mail":$scope.usr.mail, "passwd":$scope.usr.passwd};
-            user.log();/*.then(function(log) {
+            user.log(logData).then(function(log) {
                 var logged = log.data;
-                if (logged == "NOK") {
-                    $scope.registrationFailed = 'Votre inscription à échoué ! Vérifié vos informations (Il se peut que votre email soit déjà dans notre base)';
+                if (logged == "OK") {
+                    $scope.loginSuccess = 'Connexion OK';
+                    $scope.usr = null;
                 } else {
-                    $scope.registrationSuccess = 'Votre inscription à bien été prise en compte !';
+                    $scope.loginFailed = 'Echec de la connexion, identifiant ou mot de passe incorrect !';
+                    $scope.usr = null;
                 }
-            });*/
+            });
         }
         cfpLoadingBar.complete();
     };

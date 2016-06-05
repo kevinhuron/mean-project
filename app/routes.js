@@ -60,12 +60,20 @@ module.exports = function(app, passport) {
 
     /** Login **/
     app.post('/api/login', passport.authenticate('local-login', {
-        successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/login', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
+        successRedirect : '/loginSuccess',
+        failureRedirect : '/loginFailure',
+        failureFlash : true
     })); /** POST on /api/login **/
 
+    /** IF failed send non ok to show error msg in client **/
+    app.get('/loginFailure', function(req, res) {
+        res.send('NONOK');
+    });
 
+    /** IF not failed send ok to show confirm msg in client **/
+    app.get('/loginSuccess', function(req, res) {
+        res.send('OK');
+    });
 
 
     /** Logout **/
@@ -73,7 +81,6 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/');
     });
-
 
     /** route middleware to make sure a user is logged in **/
     function isLoggedIn(req, res, next) {
@@ -90,6 +97,7 @@ module.exports = function(app, passport) {
 
 
     app.get('*', function(req, res) {
+        console.log(req.user);
         res.sendfile('./public/index.html');
     });
 };
