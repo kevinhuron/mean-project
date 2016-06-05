@@ -15,7 +15,7 @@
                         </div>
 
                         <div class="form-bottom">
-                            <form  class="registration-form">
+                            <form  class="registration-form" > <!-- action="/api/inscription" method="POST" -->
                                 <div class="alert alert-success text-center" role="alert" ng-show="registrationSuccess">{{ registrationSuccess }}</div>
                                 <div class="alert alert-danger text-center" role="alert" ng-show="registrationFailed">{{ registrationFailed }}</div>
                                 <div class="form-group">
@@ -31,10 +31,10 @@
                                         <span class="help-block alert-danger" ng-show="mailRequired">{{ mailRequired }}</span>
                                 </div>
                                 <div class="form-group">
-                                        <input type="password" ng-model="user.password" class="form-control" name="password" id="password" placeholder="Password...">
+                                        <input type="password" ng-model="user.password" class="form-control" name="passwd" id="passwd" placeholder="Password...">
                                         <span class="help-block alert-danger" ng-show="passwordRequired">{{ passwordRequired }}</span>
                                 </div>
-                                <button type="submit" class="btn" ng-click="processInscription(user)">Je valide !</button>
+                                <button type="submit" class="btn" ng-click="processInscription(user)">Je valide !</button> <!--  -->
                             </form>
                         </div>
                     </div>

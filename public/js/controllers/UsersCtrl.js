@@ -30,11 +30,11 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
         } else {
             userData = {"firstname":$scope.user.firstname, "lastname":$scope.user.lastname, "mail":$scope.user.mail, "passwd":$scope.user.password};
             user.create(userData).then(function(registr) {
-                var registration = registr.data;
-                if (registration == "NOK") {
-                    $scope.registrationFailed = 'Votre inscription à échoué ! Vérifié vos informations (Il se peut que votre email soit déjà dans notre base)';
+                if (registr.data == "OK") {
+                    $scope.registrationSuccess = 'Inscription réussi ! Bonjour ' + registr.config.data.lastname + '. Vous pouvez désormais vous connecter' ;
+                    $scope.user = null;
                 } else {
-                    $scope.registrationSuccess = 'Votre inscription à bien été prise en compte !';
+                    $scope.registrationFailed = 'Votre inscription à échoué ! Vérifié vos informations (Il se peut que votre email soit déjà dans notre base)';
                 }
             });
         }

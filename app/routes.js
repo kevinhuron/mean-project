@@ -41,53 +41,39 @@ module.exports = function(app, passport) {
         });
     }); /** get on /api/blog/article/:id **/
 
-    /** inscription user **/
-    app.post('/api/inscription/', function(req, res) {
-        var user = {
-            'lastname':     req.body.lastname,
-            'firstname':    req.body.firstname,
-            'mail':         req.body.mail,
-            'passwd':       req.body.passwd,
-            'accessLvl':    "abonne"
-        };
-        // validation
-        User.findOne({ mail: req.body.mail }, function (err, userfind) {
-            if (err) {
-                res.send(err);
-                console.log(err);
-            }
-            if (userfind) { // mail already exists
-                res.json("NOK");
-            } else {
-                User.create(user,function(err, user) {
-                    if (err) {
-                        res.send(err);
-                        console.log(err);
-                    }
-                    res.json(user);
-                });
-            }
-        });
-    }); /** post on /api/inscription/ **/
+    /** Sign UP **/
+    app.post('/api/inscription', passport.authenticate('local-signup', {
+        successRedirect : '/signupSuccess',
+        failureRedirect : '/signupFailure',
+        failureFlash : true
+    })); /** POST on /api/inscription **/
 
+    /** IF failed send non ok to show error msg in client **/
+    app.get('/signupFailure', function(req, res) {
+        res.send('NONOK');
+    });
 
-
-
-
+    /** IF not failed send ok to show confirm msg in client **/
+    app.get('/signupSuccess', function(req, res) {
+        res.send('OK');
+    });
 
     /** Login **/
-    app.get('/api/login', passport.authenticate('local-login', {
+    app.post('/api/login', passport.authenticate('local-login', {
         successRedirect : '/', // redirect to the secure profile section
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
-    }));
-    /** get on /api/login **/
+    })); /** POST on /api/login **/
+
+
+
 
     /** Logout **/
     app.get('/api/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
+
 
     /** route middleware to make sure a user is logged in **/
     function isLoggedIn(req, res, next) {

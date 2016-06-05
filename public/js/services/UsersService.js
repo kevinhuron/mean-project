@@ -14,7 +14,7 @@ angular.module('UsersService', []).factory('user', ['$http', function($http) {
         },
 
         create : function(userData) {
-            return $http.post('/api/inscription/', userData);
+            return $http.post('/api/inscription', userData);
         },
 
         delete : function(id) {

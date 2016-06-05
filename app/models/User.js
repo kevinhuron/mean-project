@@ -4,7 +4,7 @@
 // app/models/articles.js
 // grab the mongoose module
 var mongoose = require('mongoose');
-//var bcrypt   = require('bcrypt-nodejs');
+var bcrypt   = require('bcrypt-nodejs');
 // define our nerd model
 // module.exports allows us to pass this to other files when it is called
 /*module.exports = mongoose.model('Articles', {
@@ -31,16 +31,16 @@ var usersShcema = new User({
 
 // methods ======================
 // generating a hash
-/*usersShcema.methods.generateHash = function(passwd) {
+usersShcema.methods.createHash = function(passwd) {
     return bcrypt.hashSync(passwd, bcrypt.genSaltSync(8), null);
 };
 
 // checking if password is valid
 usersShcema.methods.validPassword = function(passwd) {
     return bcrypt.compareSync(passwd, this.passwd);
-};*/
+};
 
-usersShcema.methods.validPassword = function (password, cb) {
+/*usersShcema.methods.validPassword = function (password, cb) {
     return this.model('User').findOne(
         {
             mail: this.mail,
@@ -53,6 +53,6 @@ usersShcema.methods.validPassword = function (password, cb) {
                 cb(false);
             }
         });
-};
+};*/
 
 module.exports = mongoose.model('User', usersShcema );

@@ -1,83 +1,64 @@
 /**
  * Created by kevinhuron on 04/06/2016.
  */
-// config/passport.js
-
-// load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
-
-// load up the user model
 var User            = require('../app/models/User');
 
-// expose this function to our app using module.exports
 module.exports = function(passport) {
 
-    // =========================================================================
-    // passport session setup ==================================================
-    // =========================================================================
-    // required for persistent login sessions
-    // passport needs ability to serialize and unserialize users out of session
-
-    // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
         done(null, user.mail);
-        console.log(user);
+        //console.log(user);
     });
-
-    // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         User.findById(id, function(err, user) {
             done(err, user);
         });
     });
-
-    // =========================================================================
-    // LOCAL SIGNUP ============================================================
-    // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
-
-    /*passport.use('local-signup', new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
-            lastnameField : 'lastname',
-            firstnameField : 'firstname',
-            mailField : 'email',
-            passwdField : 'password',
-            passReqToCallback : true // allows us to pass back the entire request to the callback
+    /** LOCAL SIGNUP **/
+    passport.use('local-signup', new LocalStrategy({
+            usernameField : 'mail',
+            passwordField : 'passwd',
+            passReqToCallback : true
         },
-        function(req, lastname, firstname, email, password, done) {
-            // asynchronous
-            // User.findOne wont fire unless data is sent back
-            process.nextTick(function() {
-                // find a user whose email is the same as the forms email
-                // we are checking to see if the user trying to login already exists
-                User.findOne({ 'mail' :  req.body.mail }, function(err, user) {
-                    // if there are any errors, return the error
-                    if (err)
+        function(req, mail, passwd, done) {
+            findOrCreateUser = function(){
+                // find a user in Mongo with provided username
+                User.findOne({'mail':mail},function(err, user) {
+                    // In case of any error return
+                    if (err){
+                        console.log('Error in SignUp: '+err);
                         return done(err);
-                    // check to see if theres already a user with that email
+                    }
+                    /** already exists **/
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        console.log('User already exists');
+                        return done(null, false, req.flash('message','User Already Exists'));
+                        //res.json("NOK");
                     } else {
-                        // if there is no user with that email
-                        // create the user
-                        var newUser            = new User();
-                        // set the user's local credentials
-                        newUser.lastname        = req.body.lastname;
-                        newUser.firstname       = req.body.firstname;
-                        newUser.mail            = req.body.mail;
-                        newUser.passwd          = newUser.generateHash(req.body.passwd);
-                        newUser.accessLvl       = "abonne";
-                        // save the user
+                        /** if there is no user with that email --> create the user **/
+                        var newUser = new User();
+                        newUser.firstname = req.body.firstname;
+                        newUser.lastname = req.body.lastname;
+                        newUser.mail = mail;//req.param('email');
+                        newUser.passwd = newUser.createHash(req.body.passwd);
+                        newUser.accessLvl = 'abonne';
                         newUser.save(function(err) {
-                            if (err)
+                            if (err){
+                                console.log('Error in Saving user: '+err);
                                 throw err;
-                            return done(null, newUser, req.flash('signupMessage', 'Inscription OK'));
+                            }
+                            console.log('User Registration succesful');
+                            return done(null, newUser);
                         });
                     }
                 });
-            });
-        }));*/
+            };
+            // Delay the execution of findOrCreateUser and execute the method in the next tick of the event loop
+            process.nextTick(findOrCreateUser);
+        })
+    );
+    /** END LOCAL SIGNUP **/
 
     // =========================================================================
     // LOCAL LOGIN =============================================================
