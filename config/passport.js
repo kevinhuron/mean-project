@@ -7,17 +7,14 @@ var User            = require('../app/models/User');
 module.exports = function(passport) {
 
     passport.serializeUser(function(user, done) {
-        done(null, user.mail);
-        //console.log(user);
+        console.log('user in passport.js = ' + user);
+        done(null, user);
+
     });
-    passport.deserializeUser(function(mail, done) {
-        User.findOne({ 'mail' :  mail },
-            function(err, user) {
-                done(err, user);
-            });
-        /*User.findById(id, function(err, user) {
+    passport.deserializeUser(function(id, done) {
+        User.findById(id, function(err, user) {
             done(err, user);
-        });*/
+        });
     });
     /** LOCAL SIGNUP **/
     passport.use('local-signup', new LocalStrategy({

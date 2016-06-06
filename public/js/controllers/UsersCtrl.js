@@ -2,6 +2,8 @@
  * Created by kevinhuron on 01/06/2016.
  */
 angular.module('UsersCtrl', ['UsersService']).controller('UsersController', function($scope, user, cfpLoadingBar) {
+
+
     /** INSCRIPTION **/
     $scope.user = {};
     $scope.usr = {};
@@ -58,19 +60,20 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
             if (!$scope.usr.passwd) {
                 $scope.passwordRequired = 'Votre mot de passe est requis pour vous connecter';
             }
-        } else {
+        }/* else {
             logData = {"mail":$scope.usr.mail, "passwd":$scope.usr.passwd};
             user.log(logData).then(function(log) {
                 var logged = log.data;
-                if (logged == "OK") {
-                    $scope.loginSuccess = 'Connexion OK';
+                if (logged == "NONOK") {
+
+                    $scope.loginFailed = 'Echec de la connexion, identifiant ou mot de passe incorrect !';
                     $scope.usr = null;
                 } else {
-                    $scope.loginFailed = 'Echec de la connexion, identifiant ou mot de passe incorrect !';
+                    $scope.loginSuccess = 'Connexion OK';
                     $scope.usr = null;
                 }
             });
-        }
+        }*/
         cfpLoadingBar.complete();
     };
     /** END LOGIN **/

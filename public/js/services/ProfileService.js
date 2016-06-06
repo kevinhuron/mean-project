@@ -1,11 +1,11 @@
 /**
  * Created by kevinhuron on 01/06/2016.
  */
-angular.module('UsersService', []).factory('user', ['$http', function($http) {
+angular.module('ProfileService', []).factory('profile', ['$http', function($http) {
     return {
         get : function(mail) {
             //console.log('idA: ' + id);
-            return $http.get('/api/profile' + mail);
+            return $http.get('/api/profile');
         },
 
         log : function(logData) {

@@ -60,20 +60,20 @@ module.exports = function(app, passport) {
 
     /** Login **/
     app.post('/api/login', passport.authenticate('local-login', {
-        successRedirect : '/loginSuccess',
-        failureRedirect : '/loginFailure',
+        successRedirect : '/profile',
+        failureRedirect : '/',
         failureFlash : true
     })); /** POST on /api/login **/
 
     /** IF failed send non ok to show error msg in client **/
-    app.get('/loginFailure', function(req, res) {
+    /*app.get('/loginFailure', function(req, res) {
         res.send('NONOK');
-    });
+    });*/
 
     /** IF not failed send ok to show confirm msg in client **/
-    app.get('/loginSuccess', function(req, res) {
+    /*app.get('/loginSuccess', function(req, res) {
         res.send('OK');
-    });
+    });*/
 
 
     /** Logout **/
@@ -82,14 +82,22 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
-    /** route middleware to make sure a user is logged in **/
-    function isLoggedIn(req, res, next) {
-        // if user is authenticated in the session, carry on
-        if (req.isAuthenticated())
-            return next();
-        // if they aren't redirect them to the home page
-        res.redirect('/login');
-    }
+
+
+    app.get('/api/profile', function(req, res) {
+        console.log(req);
+        console.log('user = ' + req.user);
+        console.log('users = ' + req.users);
+        console.log('session = ' + req.session);
+        console.log('session.user = ' + req.session.user);
+        console.log('sessions = ' + req.sessions);
+        console.log('req.sercret = ' + req.secret);
+        console.log('passport = ' + passport);
+        console.log('passport.user = ' + passport.user);
+        console.log('passport.users = ' + passport.users);
+
+        res.json({ users : req.user });
+    });
 
 
 
@@ -97,8 +105,17 @@ module.exports = function(app, passport) {
 
 
     app.get('*', function(req, res) {
-        //console.log(req.user);
+        //console.log(req);
         res.render('index.html', { users : 'test' });
         //res.sendfile('./public/index.html');
     });
 };
+
+/** route middleware to make sure a user is logged in **/
+function isLoggedIn(req, res, next) {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated())
+        return next();
+    // if they aren't redirect them to the home page
+    res.redirect('/login');
+}

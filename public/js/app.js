@@ -6,11 +6,13 @@ angular.module('mean', [
     'appRoutes',
     'MainCtrl',
     'BlogCtrl',
+    'ProfileCtrl',
     'BlogService',
     'ArticleCtrl',
     'ArticleService',
     'UsersCtrl',
     'UsersService',
+    'ProfileService',
     'MainService',
     'cfp.loadingBar'
 ]);

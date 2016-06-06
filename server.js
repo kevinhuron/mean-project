@@ -26,8 +26,11 @@ app.set('view engine', 'html');
 
 // connect to our mongoDB database
 // (uncomment after you enter in your own credentials in config/db.js)
-mongoose.connect(db.url);
-
+mongoose.connect(db.url, function(err, db) {
+    if(!err) {
+        console.log("CONNECTED TO DATABASE !");
+    }
+});
 require('./config/passport')(passport);
 
 app.use(morgan('dev'));
@@ -55,6 +58,7 @@ app.use(session({
     secret: 'appsecret',
     resave: true,
     saveUninitialized: true,
+    maxAge: 20000,
     cookie: {
         secure: true
     }
