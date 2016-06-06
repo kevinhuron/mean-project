@@ -97,7 +97,8 @@ module.exports = function(app, passport) {
 
 
     app.get('*', function(req, res) {
-        console.log(req.user);
-        res.sendfile('./public/index.html');
+        //console.log(req.user);
+        res.render('index.html', { users : 'test' });
+        //res.sendfile('./public/index.html');
     });
 };

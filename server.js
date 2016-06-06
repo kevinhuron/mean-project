@@ -11,13 +11,18 @@ var flash           = require('connect-flash');
 var session         = require('express-session');
 var cookieParser    = require('cookie-parser');
 var morgan          = require('morgan');
-
+var cons            = require('consolidate');
 /* ================================================= */
 /* ======== Config DB file ======== */
 /* ================================================= */
 var db = require('./config/db') ;
 
 var port = process.env.PORT || 8080;
+
+
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname + '/public');
+app.set('view engine', 'html');
 
 // connect to our mongoDB database
 // (uncomment after you enter in your own credentials in config/db.js)

@@ -3,7 +3,6 @@
  */
 angular.module('MainCtrl', ['MainService']).controller('MainController', function($scope, LastArticle, cfpLoadingBar) {
     LastArticle.get().then(function(articles) {
-        console.log(articles);
         cfpLoadingBar.start();
         /** ID **/
         $scope.id1 = articles.data[0]['idA'];
