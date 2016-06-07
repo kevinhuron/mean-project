@@ -1,6 +1,4 @@
-/* ================================================= */
-/* ======== modules ======== */
-/* ================================================= */
+/** modules **/
 var express         = require('express');
 var app             = express();
 var bodyParser      = require('body-parser');
@@ -12,20 +10,16 @@ var session         = require('express-session');
 var cookieParser    = require('cookie-parser');
 var morgan          = require('morgan');
 var cons            = require('consolidate');
-/* ================================================= */
-/* ======== Config DB file ======== */
-/* ================================================= */
+
+/** Config DB file **/
 var db = require('./config/db') ;
 
 var port = process.env.PORT || 8080;
-
 
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname + '/public');
 app.set('view engine', 'html');
 
-// connect to our mongoDB database
-// (uncomment after you enter in your own credentials in config/db.js)
 mongoose.connect(db.url, function(err, db) {
     if(!err) {
         console.log("CONNECTED TO DATABASE !");
@@ -34,52 +28,21 @@ mongoose.connect(db.url, function(err, db) {
 require('./config/passport')(passport);
 
 app.use(morgan('dev'));
-
 app.use(cookieParser());
-
-// get all data/stuff of the body (POST) parameters
-// parse application/json
 app.use(bodyParser.json());
-
-// parse application/vnd.api+json as json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-
-// parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride('X-HTTP-Method-Override'));
-
-// set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public'));
-
-// required for passport
-app.use(session({
-    secret: 'appsecret',
-    resave: true,
-    saveUninitialized: true,
-    maxAge: 20000,
-    cookie: {
-        secure: true
-    }
-})); // session secret
+app.use(session({secret: 'appsecret'}));
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
+app.use(passport.session());
+app.use(flash());
 
+/** Router **/
+require('./app/routes')(app, passport);
 
-/* ================================================= */
-/* ======== Route ======== */
-/* ================================================= */
-require('./app/routes')(app, passport); // configure our routes
-
-/* ================================================= */
-/* ======== Start APP at http://localhost:8080 ===== */
-/* ================================================= */
+/** Start APP at http://localhost:8080 **/
 app.listen(port);
-
-// shoutout to the user
 console.log('CONNECTED sur le port ' + port);
-
-// expose app
 exports = module.exports = app;

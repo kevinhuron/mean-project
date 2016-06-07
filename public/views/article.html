@@ -28,33 +28,45 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>{{ allArticles.titleA }}</h3>
+                                <p><i class="glyphicon glyphicon-user"></i> {{ allArticles.author[0]['lastname'] }} {{ allArticles.author[0]['firstname'] }} &nbsp;
+                                <i class="glyphicon glyphicon-calendar"></i> {{ allArticles.date }}</p>
                                 <p>{{ allArticles.longDescA }}</p>
                             </div>
                             <div class="form-top-right">
                                 <i class="fa fa-file-o"></i>
                             </div>
+                            <div class="col-lg-12">
+                                <div class="col-lg-7">
+                                    <p style="color: #fff">{{ allArticles.contentA }}</p>
+                                </div>
+                                <div class="col-lg-5">
+                                    <img ng-src="img/article/{{ allArticles.img }}" alt="{{ allArticles.img }}" style="width: 100%"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button class="let-com btn btn-link" style="color: #d5d5d5">Laisser un commentaire</button>
+                                <button class="cancel-com btn btn-link" style="display: none;color: #FF0000">Annuler</button>
+                                <div class="com" style="display: none">
+                                    <br>
+                                    <!--<img src="../img/avatar.png" alt="img-profile" style="width: 50px">-->
+                                    <form class="form-com">
+                                        <!--<div class="form-group form-inline" >
+                                            <input type="text" class="form-control input-sm" id="nom" placeholder="Nom*">
+                                            <input type="text" class="form-control input-sm" id="prenom" placeholder="Prénom*">
+                                            <input type="email" class="form-control input-sm" id="inputEmail" placeholder="Email*">
+                                        </div>-->
+                                        <div class="form-group">
+                                            <textarea class="form-control input-sm"  id="textareaCommentaire" placeholder="Votre commentaire*"></textarea>
+                                        </div>
+                                        <small style="color: #fff;">* Champs obligatoires</small><br/><br/>
+                                        <button type="submit" class="btn-sign-log btn-primary">Envoyer</button>
+                                    </form>
+                                </div>
+                            </div>
 
                         </div>
                         <div class="form-bottom">
-                            <p>{{ allArticles.contentA }}</p>
-                            <button class="let-com btn btn-link" style="color: #fff">Laisser un commentaire</button>
-                            <button class="cancel-com btn btn-link" style="display: none;color: #A00000">Annuler</button>
-                            <div class="com" style="display: none">
-                                <br>
-                                <!--<img src="../img/avatar.png" alt="img-profile" style="width: 50px">-->
-                                <form class="form-com">
-                                    <!--<div class="form-group form-inline" >
-                                        <input type="text" class="form-control input-sm" id="nom" placeholder="Nom*">
-                                        <input type="text" class="form-control input-sm" id="prenom" placeholder="Prénom*">
-                                        <input type="email" class="form-control input-sm" id="inputEmail" placeholder="Email*">
-                                    </div>-->
-                                    <div class="form-group">
-                                        <textarea class="form-control input-sm" rows="5" id="textareaCommentaire" placeholder="Votre commentaire*"></textarea>
-                                    </div>
-                                    <small style="color: #fff;">* Champs obligatoires</small><br/><br/>
-                                        <button type="submit" class="btn-sign-log btn-primary">Envoyer</button>
-                                </form>
-                            </div>
+
                         </div>
                     </div>
                 </div>

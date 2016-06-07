@@ -9,6 +9,9 @@ var User = require('./models/User');
 module.exports = function(app, passport) {
     /** All article in blog page **/
     app.get('/api/blog', function(req, res) {
+        console.log(req);
+        console.log('user = ' + req.user);
+        console.log('users = ' + req.users);
         Articles.find(function(err, articles) {
             if (err) {
                 res.send(err);
@@ -20,6 +23,9 @@ module.exports = function(app, passport) {
 
     /** 4 last articles in home page **/
     app.get('/api/home/article', function(req, res) {
+        console.log(req);
+        console.log('user = ' + req.user);
+        console.log('users = ' + req.users);
         Articles.find().sort([['idA', -1]]).limit(4).exec(function(err, articles) {
             if (err) {
                 res.send(err);
@@ -42,45 +48,28 @@ module.exports = function(app, passport) {
     }); /** get on /api/blog/article/:id **/
 
     /** Sign UP **/
-    app.post('/api/inscription', passport.authenticate('local-signup', {
-        successRedirect : '/signupSuccess',
-        failureRedirect : '/signupFailure',
-        failureFlash : true
-    })); /** POST on /api/inscription **/
-
-    /** IF failed send non ok to show error msg in client **/
-    app.get('/signupFailure', function(req, res) {
-        res.send('NONOK');
-    });
-
-    /** IF not failed send ok to show confirm msg in client **/
-    app.get('/signupSuccess', function(req, res) {
-        res.send('OK');
-    });
+    app.post('/api/inscription', function(req, res, next ) {
+        passport.authenticate('local-signup', function(err, user, info) {
+            if (err) { return next(err) }
+            if (!user) { return res.json({ message: info.message, type: info.type }) }
+            res.json(user);
+        })(req, res, next);
+    }); /** post on /api/inscription **/
 
     /** Login **/
-    app.post('/api/login', passport.authenticate('local-login', {
-        successRedirect : '/profile',
-        failureRedirect : '/',
-        failureFlash : true
-    })); /** POST on /api/login **/
-
-    /** IF failed send non ok to show error msg in client **/
-    /*app.get('/loginFailure', function(req, res) {
-        res.send('NONOK');
-    });*/
-
-    /** IF not failed send ok to show confirm msg in client **/
-    /*app.get('/loginSuccess', function(req, res) {
-        res.send('OK');
-    });*/
-
+    app.post('/api/login', function(req, res, next ) {
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) { return next(err) }
+            if (!user) { return res.json( { message: info.message, type: info.type }) }
+            res.json(user);
+        })(req, res, next);
+    }); /** post on /api/login **/
 
     /** Logout **/
     app.get('/api/logout', function(req, res) {
         req.logout();
         res.redirect('/');
-    });
+    });/** get on Logout **/
 
 
 
