@@ -11,8 +11,8 @@ module.exports = function(passport) {
         done(null, user);
 
     });
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
+    passport.deserializeUser(function(mail, done) {
+        User.findOne({'mail':mail}, function(err, user) {
             done(err, user);
         });
     });
@@ -82,6 +82,8 @@ module.exports = function(passport) {
                         console.log('Invalid Password');
                         return done(null, false, req.flash('message', 'Invalid Password'));
                     }
+                    console.log('User login succesful');
+                    console.log(req);
                     return done(null, user);
                 });
     }));

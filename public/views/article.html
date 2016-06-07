@@ -1,5 +1,5 @@
-<div style="margin-top: 90px"></div>
-<div class="container">
+<!--<div style="margin-top: 90px"></div>-->
+<!--<div class="container">
     <div class="panel panel-success">
         <div class="panel-heading text-center">
             <span style="float: right">
@@ -14,28 +14,56 @@
             <p>{{ allArticles.contentA }}</p>
         </div>
         <div class="panel-footer">
-            <button class="let-com btn btn-sm btn-info">Laisser un commentaire</button>
-            <button class="cancel-com btn btn-sm btn-danger" style="display: none">Annuler</button>
-            <div class="com" style="display: none">
-                <br>
-                <!--<img src="../img/avatar.png" alt="img-profile" style="width: 50px">-->
-                <form class="form-com">
-                    <div class="form-group form-inline" >
-                        <input type="text" class="form-control input-sm" id="nomPrenom" placeholder="Nom & Prénom*">
-                        <input type="email" class="form-control input-sm" id="inputEmail" placeholder="Email*">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control input-sm" rows="5" id="textareaCommentaire" placeholder="Votre commentaire*"></textarea>
-                    </div>
-                    <small style="color: red;">* Champs obligatoires</small><br>
-                    <button type="submit" class="btn btn-sm btn-primary">Envoyer</button>
-                    <button type="reset" class="btn btn-sm btn-danger">Réinitialiser</button>
-                </form>
-            </div>
 
         </div>
     </div>
+</div>-->
+
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div style="width: 100%;margin-left: auto;margin-right: auto;">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>{{ allArticles.titleA }}</h3>
+                                <p>{{ allArticles.longDescA }}</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-file-o"></i>
+                            </div>
+
+                        </div>
+                        <div class="form-bottom">
+                            <p>{{ allArticles.contentA }}</p>
+                            <button class="let-com btn btn-link" style="color: #fff">Laisser un commentaire</button>
+                            <button class="cancel-com btn btn-link" style="display: none;color: #A00000">Annuler</button>
+                            <div class="com" style="display: none">
+                                <br>
+                                <!--<img src="../img/avatar.png" alt="img-profile" style="width: 50px">-->
+                                <form class="form-com">
+                                    <!--<div class="form-group form-inline" >
+                                        <input type="text" class="form-control input-sm" id="nom" placeholder="Nom*">
+                                        <input type="text" class="form-control input-sm" id="prenom" placeholder="Prénom*">
+                                        <input type="email" class="form-control input-sm" id="inputEmail" placeholder="Email*">
+                                    </div>-->
+                                    <div class="form-group">
+                                        <textarea class="form-control input-sm" rows="5" id="textareaCommentaire" placeholder="Votre commentaire*"></textarea>
+                                    </div>
+                                    <small style="color: #fff;">* Champs obligatoires</small><br/><br/>
+                                        <button type="submit" class="btn-sign-log btn-primary">Envoyer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 <script>
     $(document).ready(function(){
         $(".let-com").click(function(e){

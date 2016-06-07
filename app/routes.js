@@ -95,8 +95,9 @@ module.exports = function(app, passport) {
         console.log('passport = ' + passport);
         console.log('passport.user = ' + passport.user);
         console.log('passport.users = ' + passport.users);
+        console.log('req._passport.session = ' + req._passport.session);
 
-        res.json({ users : req.user });
+        res.json({ users : req._passport.session });
     });
 
 
