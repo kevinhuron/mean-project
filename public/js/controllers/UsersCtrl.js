@@ -9,12 +9,14 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
     var logData;
     $scope.processInscription = function() {
         cfpLoadingBar.start();
+        /** ****** **/
         $scope.firstnameRequired = '';
         $scope.lastnameRequired = '';
         $scope.mailRequired = '';
         $scope.passwordRequired = '';
         $scope.registrationFailed = '';
         $scope.registrationSuccess ='';
+        /** ****** **/
         if (!$scope.user.firstname || !$scope.user.lastname || !$scope.user.mail || !$scope.user.password) {
             if (!$scope.user.firstname) {
                 $scope.firstnameRequired = 'Votre Nom est requis';
@@ -42,10 +44,11 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
                     cfpLoadingBar.start();
                     $timeout(function() {
                         $location.path('/profile');
-                    }, 1500);
+                    }, 1000);
                 }
             });
         }
+        /** ****** **/
         cfpLoadingBar.complete();
     };
     /** END INSCRIPTION **/
@@ -53,10 +56,12 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
     /** LOGIN **/
     $scope.loginUsr = function() {
         cfpLoadingBar.start();
+        /** ****** **/
         $scope.mailRequired = '';
         $scope.passwordRequired = '';
         $scope.loginFailed = '';
         $scope.loginSuccess ='';
+        /** ****** **/
         if (!$scope.usr.mail || !$scope.usr.passwd) {
             if (!$scope.usr.mail) {
                 $scope.mailRequired = 'Votre mail est requis pour vous connecter';
@@ -78,10 +83,11 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
                     cfpLoadingBar.start();
                     $timeout(function() {
                         $location.path('/profile');
-                    }, 1500);
+                    }, 1000);
                 }
             });
         }
+        /** ****** **/
         cfpLoadingBar.complete();
     };
     /** END LOGIN **/

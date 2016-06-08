@@ -17,6 +17,10 @@ angular.module('ProfileService', []).factory('profile', ['$http', function($http
             return $http.post('/api/inscription', userData);
         },
 
+        update : function(userData) {
+            return $http.put('/api/updateUser', userData);
+        },
+
         delete : function(id) {
             return $http.delete('/api/nerds/' + id);
         }

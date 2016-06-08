@@ -5,6 +5,7 @@
 
 var Articles = require('./models/articles');
 var User = require('./models/User');
+var bcrypt   = require('bcrypt-nodejs');
 
 module.exports = function(app, passport) {
     /** All article in blog page **/
@@ -79,6 +80,7 @@ module.exports = function(app, passport) {
     });
     /**************** End Logout **************/
 
+    /**************** Profile ****************/
     app.get('/api/profile', isLoggedIn, function(req, res) {
         Articles.find({'author.mail': req.user.local.mail},function(err, article) {
             if (err) {
@@ -86,6 +88,23 @@ module.exports = function(app, passport) {
                 console.log(err);
             }
             res.json({ article: article, user: req.user});
+        });
+    });
+    /************** End Profile **************/
+
+    app.put('/api/updateUser', isLoggedIn, function(req, res) {
+        var updateData;
+        console.log(req.body.password);
+        if (typeof req.body.password !== 'undefined' && req.body.password)
+            updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne", "local.passwd":generateHash((req.body.password).toString())};
+        else
+            updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne"};
+        console.log(updateData);
+        console.log(updateData);
+        User.findOneAndUpdate({'local.mail': req.user.local.mail}, updateData, function(err, user) {
+            if (err) throw err;
+            console.log(user);
+            res.json("OK");
         });
     });
 
@@ -100,6 +119,9 @@ module.exports = function(app, passport) {
     });
 };
 
+function generateHash(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 /** route middleware to make sure a user is logged in **/
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())

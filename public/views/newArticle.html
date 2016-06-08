@@ -13,28 +13,26 @@
                                 <i class="fa fa-pencil"></i>
                             </div>
                         </div>
-
                         <div class="form-bottom">
                             <form  class="registration-form">
-                                <div class="alert alert-success text-center" role="alert" ng-show="registrationSuccess">{{ registrationSuccess }}</div>
-                                <div class="alert alert-danger text-center" role="alert" ng-show="registrationFailed">{{ registrationFailed }}</div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Titre...">
-                                    <span class="help-block alert-danger">{{ firstnameRequired }}</span>
+                                    <input type="text" ng-model="article.titleA" class="form-control" id="titleA" name="titleA" placeholder="Titre...">
+                                    <span class="help-block alert-danger">{{ titleARequired }}</span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text"  class="form-control" id="firstname" name="firstname" placeholder="Description...">
-                                    <span class="help-block alert-danger">{{ lastnameRequired }}</span>
+                                    <input type="text" ng-model="article.longDescA" class="form-control" id="longDescA" name="longDescA" placeholder="Description...">
+                                    <span class="help-block alert-danger">{{ longDescARequired }}</span>
                                 </div>
                                 <div class="form-group">
-                                    <textarea type="text" class="form-control" id="mail" name="mail" placeholder="Contenu..."></textarea>
-                                    <span class="help-block alert-danger">{{ mailRequired }}</span>
+                                    <textarea ng-model="article.contentA" class="form-control" id="contentA" name="contentA" placeholder="Contenu..."></textarea>
+                                    <span class="help-block alert-danger">{{ contentARequired }}</span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="file" class="form-control" id="file" name="file" placeholder="Image...">
-                                    <span class="help-block alert-danger">{{ mailRequired }}</span>
+                                    <label for="img">Image</label>
+                                    <input type="file" ng-model="article.img" class="form-control" id="img" name="img" placeholder="Image...">
+                                    <span class="help-block alert-danger">{{ imgRequired }}</span>
                                 </div>
-                                <button type="submit" class="btn btn-sign-log" >J'envoi mon article !</button>
+                                <button type="submit" class="btn btn-sign-log" ng-click="insertArticle(article)">J'envoi mon article !</button>
                             </form>
                         </div>
                     </div>
