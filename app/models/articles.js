@@ -12,11 +12,11 @@ var articlesShcema = new Articles({
     contentA        : String,
     date            : String,
     img             : String,
-    author          : [{
+    author          : {
         lastname    : String,
         firstname   : String,
         mail        : String
-    }]
+    }
 });
 
 module.exports = mongoose.model('mean', articlesShcema, 'Articles');

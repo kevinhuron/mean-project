@@ -3,8 +3,13 @@
  */
 angular.module('ArticleCtrl', ['ArticleService']).controller('ArticleController', function($scope, $routeParams, Article, cfpLoadingBar) {
     Article.get($routeParams.idA).then(function(oneArticle) {
-        cfpLoadingBar.start()
-        var article = oneArticle.data;
+        cfpLoadingBar.start();
+        if (oneArticle.data.user) {
+            $scope.$parent.hidden = false;
+            $scope.$parent.tohide = false;
+            $scope.$parent.username = oneArticle.data.user.local.firstname;
+        }
+        var article = oneArticle.data.article;
         $scope.allArticles = article;
         cfpLoadingBar.complete();
     });

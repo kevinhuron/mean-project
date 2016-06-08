@@ -39,6 +39,11 @@ angular.module('appRoutes', ['angular-loading-bar']).config(['$routeProvider', '
             controller: 'ProfileController'
         })
 
+        .when('/newArticle', {
+            templateUrl: 'views/newArticle.html',
+            controller: 'ArticleController'
+        })
+
         .when('/404', {
             templateUrl: 'views/404.html'
             //controller: 'UsersController'

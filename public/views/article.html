@@ -1,24 +1,3 @@
-<!--<div style="margin-top: 90px"></div>-->
-<!--<div class="container">
-    <div class="panel panel-success">
-        <div class="panel-heading text-center">
-            <span style="float: right">
-                <small>By : </small>
-                {{ allArticles.author[0]['lastname'] }} {{ allArticles.author[0]['firstname'] }}
-                | <small>Le : </small>{{ allArticles.date }}
-            </span>
-            <br>
-            {{ allArticles.titleA }}
-        </div>
-        <div class="panel-body text-center">
-            <p>{{ allArticles.contentA }}</p>
-        </div>
-        <div class="panel-footer">
-
-        </div>
-    </div>
-</div>-->
-
 <div class="top-content">
     <div class="inner-bg">
         <div class="container">
@@ -28,7 +7,7 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>{{ allArticles.titleA }}</h3>
-                                <p><i class="glyphicon glyphicon-user"></i> {{ allArticles.author[0]['lastname'] }} {{ allArticles.author[0]['firstname'] }} &nbsp;
+                                <p><i class="glyphicon glyphicon-user"></i> {{ allArticles.author.lastname }} {{ allArticles.author.firstname }} &nbsp;
                                 <i class="glyphicon glyphicon-calendar"></i> {{ allArticles.date }}</p>
                                 <p>{{ allArticles.longDescA }}</p>
                             </div>
@@ -56,7 +35,7 @@
                                             <input type="email" class="form-control input-sm" id="inputEmail" placeholder="Email*">
                                         </div>-->
                                         <div class="form-group">
-                                            <textarea class="form-control input-sm"  id="textareaCommentaire" placeholder="Votre commentaire*"></textarea>
+                                            <textarea class="form-control"  id="textareaCommentaire" placeholder="Votre commentaire*"></textarea>
                                         </div>
                                         <small style="color: #fff;">* Champs obligatoires</small><br/><br/>
                                         <button type="submit" class="btn-sign-log btn-primary">Envoyer</button>

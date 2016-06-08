@@ -71,13 +71,13 @@ module.exports = function (passport) {
                 /** if no user is found **/
                 if (!user) {
                     console.log('User Not Found with mail ' + mail);
-                    return done(null, false, {message:'Aucun utilisateur trouvé avec cet email : ' + mail, type:'notf'});
+                    return done(null, false);
                 }
 
                 /** if user found but wrong passwd **/
                 if (!user.validPassword(passwd)) {
                     console.log('Invalid Password');
-                    return done(null, false, {message:'Oupss, Mot de passe incorrect.', type:'invP'});
+                    return done(null, false);
                 }
                 console.log('User login succesful');
                 /** return successful user **/

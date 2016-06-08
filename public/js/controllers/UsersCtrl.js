@@ -2,8 +2,6 @@
  * Created by kevinhuron on 01/06/2016.
  */
 angular.module('UsersCtrl', ['UsersService']).controller('UsersController', function($scope, $timeout, $location,  user, cfpLoadingBar) {
-
-
     /** INSCRIPTION **/
     $scope.user = {};
     $scope.usr = {};
@@ -34,10 +32,9 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
             userData = {"firstname":$scope.user.firstname, "lastname":$scope.user.lastname, "mail":$scope.user.mail, "passwd":$scope.user.password};
             user.create(userData).then(function(registr) {
                 var message = registr.data.message;
-                var type = registr.data.type;
-                if (type == "mailUse") {
-                    $scope.registrationFailed = message;
-                    $scope.user = null;
+                if (message == "NOK") {
+                    $scope.registrationFailed = 'Echec ! Vérifiez vos information, il ce peut que votre email soit déjà enregistré et il doit être unique.';
+                    $scope.usr = null;
                 } else {
                     $scope.registrationSuccess = 'Inscription réussi ! Bonjour ' + registr.config.data.lastname + '. Vous êtes désormais connecté. Redirection...';
                     $scope.usr = null;
@@ -71,12 +68,8 @@ angular.module('UsersCtrl', ['UsersService']).controller('UsersController', func
             logData = {"mail":$scope.usr.mail, "passwd":$scope.usr.passwd};
             user.log(logData).then(function(log) {
                 var message = log.data.message;
-                var type = log.data.type;
-                if (type == "notf") {
-                    $scope.loginFailed = message;
-                    $scope.usr = null;
-                } else if (type == "invP") {
-                    $scope.loginFailed = message;
+                if (message == "NOK") {
+                    $scope.loginFailed = 'Echec ! Identifiant ou mot de passe incorrect.';
                     $scope.usr = null;
                 } else {
                     $scope.loginSuccess = 'Connexion réussi ! Redirection ...';

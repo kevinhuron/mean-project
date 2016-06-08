@@ -22,6 +22,7 @@
     <script src="js/controllers/BlogCtrl.js"></script>
     <script src="js/controllers/ArticleCtrl.js"></script>
     <script src="js/controllers/UsersCtrl.js"></script>
+    <script src="js/controllers/SuperMainCtrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
     <script src="js/services/BlogService.js"></script>
     <script src="js/services/ArticleService.js"></script>
@@ -31,7 +32,7 @@
     <script src="js/appRoutes.js"></script>
     <script src="js/app.js"></script>
 </head>
-<body ng-app="mean" ><!-- ng-controller="BlogController" -->
+<body ng-app="mean" ng-controller="SuperMainController"><!-- ng-controller="BlogController" -->
 
     <!-- HEADER -->
     <div id="wrap">
@@ -47,25 +48,28 @@
                     </button>
                     <a class="navbar-brand" href="/"> SUPER BLOG</a>
                 </div>
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="/"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                        <li><a href="/blog"><i class="glyphicon glyphicon-th-list"></i> Blog</a></li>
+                        <li><a href="/"><i class="glyphicon glyphicon-home"></i>&nbsp; Home</a></li>
+                        <li><a href="/blog"><i class="glyphicon glyphicon-th-list"></i>&nbsp; Blog</a></li>
+                        <li ng-hide="hidden"><a href="/newArticle"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Nouvel article</a></li>
                     </ul>
-
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/inscription"><i class="glyphicon glyphicon-log-in"></i>&nbsp; Inscription</a></li>
-                        <li><a href="/login"><i class="glyphicon glyphicon-user"></i> Connexion</a></li>
-                        <li><a href="/login"><i class="glyphicon glyphicon-user"></i>{{ users }}</a></li>
+                        <li ng-show="tohide"><a href="/inscription"><i class="glyphicon glyphicon-log-in"></i>&nbsp; Inscription</a></li>
+                        <li ng-show="tohide"><a href="/login"><i class="glyphicon glyphicon-user"></i>&nbsp; Connexion</a></li>
+                        <li ng-hide="hidden"><a href="/profile"><i class="glyphicon glyphicon-user"></i>&nbsp; {{ username }}</a></li>
+
+                        <li ng-hide="hidden"><a id="decoNav" href="#"><i class="glyphicon glyphicon-log-out"></i>&nbsp; Déconnexion</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+        <form action="/api/logout" id="formDecoNav"></form>
         <!-- ANGULAR DYNAMIC CONTENT -->
         <div ng-view></div>
     </div>
+
     <footer id="footer">
         <div class="container footer-container">
             <div class="col-lg-12">
@@ -83,10 +87,10 @@
                         <a class="btn btn-social-icon btn-linkedin">
                             <span class="fa fa-linkedin"></span>
                         </a>
-                        <li><a href="/"><i class="glyphicon glyphicon-home"></i> Home</a></li>
-                        <li><a href="/blog"><i class="glyphicon glyphicon-th-list"></i> Blog</a></li>
+                        <li><a href="/"><i class="glyphicon glyphicon-home"></i>&nbsp; Home</a></li>
+                        <li><a href="/blog"><i class="glyphicon glyphicon-th-list"></i>&nbsp; Blog</a></li>
                         <li><a href="/inscription"><i class="glyphicon glyphicon-log-in"></i>&nbsp; Inscription</a></li>
-                        <li><a href="/login"><i class="glyphicon glyphicon-user"></i> Connexion</a></li>
+                        <li><a href="/login"><i class="glyphicon glyphicon-user"></i>&nbsp; Connexion</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 text-right ">
@@ -95,5 +99,12 @@
             </div>
         </div>
     </footer>
+<script>
+    $(document).ready(function(){
+       $("#decoNav").click(function(){
+           $("#formDecoNav").submit();
+       });
+    });
+</script>
 </body>
 </html>

@@ -6,6 +6,7 @@ angular.module('mean', [
     'appRoutes',
     'MainCtrl',
     'BlogCtrl',
+    'SuperMainCtrl',
     'ProfileCtrl',
     'BlogService',
     'ArticleCtrl',
