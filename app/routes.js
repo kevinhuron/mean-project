@@ -6,9 +6,23 @@
 var Articles = require('./models/articles');
 var User = require('./models/User');
 var bcrypt   = require('bcrypt-nodejs');
+var multer  = require('multer');
+var moment  = require('moment');
+var path = require('path');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
 
-module.exports = function(app, passport) {
-    /** All article in blog page **/
+var upload = multer({ storage: storage });
+var uploadFile = upload.single('img');
+
+module.exports = function(app, passport, multer) {
+    /**************** article blog ****************/
     app.get('/api/blog', function(req, res) {
         Articles.find(function(err, articles) {
             if (err) {
@@ -17,9 +31,10 @@ module.exports = function(app, passport) {
             }
             res.json({ articles: articles, user: req.user});
         });
-    }); /** get on /api/blog **/
+    });
+    /************** End article blog *************/
 
-    /** 4 last articles in home page **/
+    /**************** article home ****************/
     app.get('/api/home/article', function(req, res) {
         Articles.find().sort([['idA', -1]]).limit(4).exec(function(err, articles) {
             if (err) {
@@ -28,19 +43,20 @@ module.exports = function(app, passport) {
             }
             res.json({ articles: articles, user: req.user});
         });
-    }); /** get on /api/home/article **/
+    });
+    /************** End article home **************/
 
-    /** one article in article page **/
+    /****************** article page ******************/
     app.get('/api/blog/article/:idA', function(req, res) {
         Articles.findOne({'idA': parseInt(req.params.idA)},function(err, article) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
-            //console.log('id : ' + req.params.idA);
             res.json({ article: article, user: req.user});
         });
-    }); /** get on /api/blog/article/:id **/
+    });
+    /****************** End article page ******************/
 
     /****************** Sign UP ******************/
     app.post('/api/inscription', passport.authenticate('local-signup', {
@@ -92,23 +108,62 @@ module.exports = function(app, passport) {
     });
     /************** End Profile **************/
 
+    /**************** Update Profile ****************/
     app.put('/api/updateUser', isLoggedIn, function(req, res) {
         var updateData;
-        console.log(req.body.password);
         if (typeof req.body.password !== 'undefined' && req.body.password)
             updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne", "local.passwd":generateHash((req.body.password).toString())};
         else
             updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne"};
-        console.log(updateData);
-        console.log(updateData);
         User.findOneAndUpdate({'local.mail': req.user.local.mail}, updateData, function(err, user) {
             if (err) throw err;
             console.log(user);
             res.json("OK");
         });
     });
+    /**************** End Update Profile ****************/
 
+    app.get('/api/newArticle', function(req, res){
+        Articles.find().sort([['idA', -1]]).limit(1).exec(function(err, articles) {
+            if (err) {
+                res.send(err);
+                console.log(err);
+            }
+            res.json({ articles: articles, user: req.user});
+        });
+    });
 
+    app.post('/api/newArticle', function(req, res) {
+        uploadFile(req, res, function (err) {
+            console.log(req.file);
+            if (err)
+                console.log(err);
+            var articleData;
+            var lastId = (parseInt(req.body.lastId) + 1);
+            if (typeof req.file !== 'undefined' && req.file) {
+                articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
+                    "longDescA":(req.body.longDescA).toString(),
+                    "contentA":(req.body.contentA).toString(),
+                    "date":(moment().format('L')).toString(),
+                    "img":(req.file.originalname).toString(),
+                    "author":{"firstname" : (req.user.local.firstname).toString(),
+                        "lastname" : (req.user.local.lastname).toString(),
+                        "mail" : (req.user.local.mail).toString()}};
+            } else {
+                articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
+                    "longDescA":(req.body.longDescA).toString(),
+                    "contentA":(req.body.contentA).toString(),
+                    "date":(moment().format('L')).toString(),
+                    "img":"",
+                    "author":{"firstname" : (req.user.local.firstname).toString(),
+                        "lastname" : (req.user.local.lastname).toString(),
+                        "mail" : (req.user.local.mail).toString()}};
+            }
+            console.log(articleData);
+            res.status(204).end()
+        });
+
+    });
 
 
 

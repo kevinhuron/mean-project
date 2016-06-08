@@ -8,11 +8,15 @@ angular.module('ArticleService', []).factory('Article', ['$http', function($http
             //console.log('idA: ' + id);
             return $http.get('/api/blog/article/' + id);
         },
+        get : function() {
+            //console.log('idA: ' + id);
+            return $http.get('/api/newArticle');
+        },
 
         // these will work when more API routes are defined on the Node side of things
         // call to POST and create a new nerd
         create : function(articleData) {
-            return $http.post('/api/nerds', articleData);
+            return $http.post('/api/newArticle', articleData);
         },
 
         // call to DELETE a nerd

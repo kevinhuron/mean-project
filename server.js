@@ -9,7 +9,7 @@ var flash           = require('connect-flash');
 var session         = require('express-session');
 var cookieParser    = require('cookie-parser');
 var morgan          = require('morgan');
-var cons            = require('consolidate');
+var multer  = require('multer');
 
 /** Config DB file **/
 var db = require('./config/db') ;
@@ -37,7 +37,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(session({secret: 'appsecret'}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+//app.use(multer({ dest: __dirname + '/public/img/article/' }));
 
 /** Router **/
 require('./app/routes')(app, passport);

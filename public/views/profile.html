@@ -52,6 +52,7 @@
                 </div>
                 <div class="col-lg-6">
                     <h1 style="color: #fff;text-align: center">Mes Articles</h1>
+                    <h2 ng-show="noArticle">{{ noArticle }}</h2>
                     <ul class="media-list main-list">
                         <li class="media" ng-repeat="article in userArticle">
                             <a class="pull-left" href="/blog/article/{{ article.idA }}">
