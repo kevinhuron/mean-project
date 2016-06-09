@@ -31,6 +31,7 @@
                                 <div class="form-group">
                                     <label for="img">Image</label>
                                     <input type="file" ng-model="article.img" class="form-control" id="img" name="img" placeholder="Image...">
+                                    <br/>
                                     <div id="image" style="display: none">
                                         <img id="preview" src="" alt="" width="300" height="200"/>
                                     </div>
@@ -51,7 +52,7 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#preview').attr('src', e.target.result);
-            }
+            };
             reader.readAsDataURL(input.files[0]);
         }
     }

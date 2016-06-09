@@ -11,7 +11,7 @@ var moment  = require('moment');
 var path = require('path');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads/')
+        cb(null, './public/img/article/')
     },
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
@@ -123,16 +123,19 @@ module.exports = function(app, passport, multer) {
     });
     /**************** End Update Profile ****************/
 
+    /********** newArticle page for last id **********/
     app.get('/api/newArticle', function(req, res){
         Articles.find().sort([['idA', -1]]).limit(1).exec(function(err, articles) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
-            res.json({ articles: articles, user: req.user});
+            res.json({ articles: articles });
         });
     });
+    /******** End newArticle page for last id **********/
 
+    /**************** newArticle ****************/
     app.post('/api/newArticle', function(req, res) {
         uploadFile(req, res, function (err) {
             console.log(req.file);
@@ -145,7 +148,7 @@ module.exports = function(app, passport, multer) {
                     "longDescA":(req.body.longDescA).toString(),
                     "contentA":(req.body.contentA).toString(),
                     "date":(moment().format('L')).toString(),
-                    "img":(req.file.originalname).toString(),
+                    "img":(req.file.filename).toString(),
                     "author":{"firstname" : (req.user.local.firstname).toString(),
                         "lastname" : (req.user.local.lastname).toString(),
                         "mail" : (req.user.local.mail).toString()}};
@@ -160,11 +163,18 @@ module.exports = function(app, passport, multer) {
                         "mail" : (req.user.local.mail).toString()}};
             }
             console.log(articleData);
-            res.status(204).end()
+            /** create the article **/
+            var newArticle = new Articles(articleData);
+
+            /** save the user **/
+            newArticle.save(function (err) {
+                if (err)
+                    throw err;
+                res.status(204).redirect('/profile');
+            });
         });
-
     });
-
+    /**************** End newArticle ****************/
 
 
 

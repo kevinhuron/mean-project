@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var Articles = mongoose.Schema;
 var articlesShcema = new Articles({
-    ida             : Number,
+    idA             : Number,
     titleA          : String,
     shortDescA      : String,
     longDescA       : String,

@@ -4,12 +4,10 @@
 angular.module('ProfileService', []).factory('profile', ['$http', function($http) {
     return {
         get : function(mail) {
-            //console.log('idA: ' + id);
             return $http.get('/api/profile');
         },
 
         log : function(logData) {
-            //console.log('idA: ' + id);
             return $http.post('/api/login', logData);
         },
 
