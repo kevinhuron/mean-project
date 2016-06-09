@@ -24,9 +24,11 @@
     <script src="js/controllers/UsersCtrl.js"></script>
     <script src="js/controllers/SuperMainCtrl.js"></script>
     <script src="js/controllers/ProfileCtrl.js"></script>
+    <script src="js/controllers/adminUsersCtrl.js"></script>
     <script src="js/services/BlogService.js"></script>
     <script src="js/services/ArticleService.js"></script>
     <script src="js/services/MainService.js"></script>
+    <script src="js/services/AdminService.js"></script>
     <script src="js/services/UsersService.js"></script>
     <script src="js/services/ProfileService.js"></script>
     <script src="libs/angular-scroll-glue/src/scrollglue.js"></script>
@@ -57,10 +59,14 @@
                         <li ng-hide="hidden"><a href="/newArticle"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp; Nouvel article</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li ng-hide="hiddenAdmin"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>&nbsp; Gestion articles</a></li>
+                        <li ng-hide="hiddenAdmin"><a href="/admin/users"><i class="fa fa-users"></i>&nbsp; Gestion users</a></li>
+                        <li ng-hide="hiddenAdmin"><a href="#"><i class="fa fa-comments-o"></i>&nbsp; Gestion commentaires</a></li>
                         <li ng-show="tohide"><a href="/inscription"><i class="glyphicon glyphicon-log-in"></i>&nbsp; Inscription</a></li>
                         <li ng-show="tohide"><a href="/login"><i class="glyphicon glyphicon-user"></i>&nbsp; Connexion</a></li>
                         <li ng-hide="hidden"><a href="/profile"><i class="glyphicon glyphicon-user"></i>&nbsp; {{ username }}</a></li>
                         <li ng-hide="hidden"><a id="decoNav" href="#"><i class="glyphicon glyphicon-log-out"></i>&nbsp; Déconnexion</a></li>
+
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

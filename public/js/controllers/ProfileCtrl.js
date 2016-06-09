@@ -14,6 +14,9 @@ angular.module('ProfileCtrl', ['ProfileService']).controller('ProfileController'
             $scope.user.firstname = data.data.user.local.lastname;
             $scope.user.lastname = data.data.user.local.firstname;
             $scope.user.mail = data.data.user.local.mail;
+            if (data.data.user.local.accessLvl == "admin") {
+                $scope.$parent.hiddenAdmin = false;
+            }
             if (data.data.article != "") {
                 $scope.userArticle = data.data.article;
             } else {

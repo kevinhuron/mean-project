@@ -49,6 +49,11 @@ angular.module('appRoutes', ['angular-loading-bar']).config(['$routeProvider', '
             controller: 'EditArticleController'
         })
 
+        .when('/admin/users', {
+            templateUrl: 'views/adminUsers.html',
+            controller: 'AdminUsersController'
+        })
+
         .when('/404', {
             templateUrl: 'views/404.html'
             //controller: 'UsersController'

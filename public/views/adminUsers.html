@@ -1,0 +1,118 @@
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container-fluid">
+            <div class="col-lg-12">
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div >
+                            <div class="form-box">
+                                <div class="form-top">
+                                    <div class="form-top-left">
+                                        <h3>Bonjour {{ username }} !</h3>
+                                        <p  >Vous pouvez éditer le profile des autres utilisateurs.</p>
+                                        <form action="/api/logout">
+                                            <button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-log-out"></i>&nbsp; Déconnexion</button>
+                                        </form>
+                                    </div>
+                                    <div class="form-top-right">
+                                        <i class="fa fa-pencil"></i>
+                                    </div>
+                                </div>
+                                <div class="form-bottom" ><!--ng-if="user.mail"-->
+                                    <form  class="registration-form">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="EditUser.firstname" class="form-control" id="lastname" name="lastname" placeholder="Nom..." ng-value="lastname">
+                                            <span class="help-block alert-danger" ng-show="firstnameRequired">{{ firstnameRequired }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" ng-model="EditUser.lastname" class="form-control" id="firstname" name="firstname" placeholder="Prénom..." ng-value="firstname">
+                                            <span class="help-block alert-danger" ng-show="lastnameRequired">{{ lastnameRequired }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="email" ng-model="EditUser.mail" class="form-control" id="mail" name="mail" placeholder="Email..." ng-value="mail" disabled>
+                                            <!--<span class="help-block alert-danger" ng-show="mailRequired">{{ mailRequired }}</span>-->
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" ng-model="EditUser.password" class="form-control" name="passwd" id="passwd" placeholder="Nouveau Password...">
+                                            <span class="help-block alert-danger" ng-show="passwordRequired">{{ passwordRequired }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" ng-model="EditUser.confirmpassword" class="form-control" name="confirmpasswd" id="confirmpasswd" placeholder="Confirmez votre Password...">
+                                            <div id="verifMdpConfirm"></div>
+                                            <span class="help-block alert-danger" ng-show="passwordRequired">{{ confirmPasswordRequired }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="radio-inline" style="color: #fff">
+                                                <input type="radio" name="role" id="radioAbo" value="abonne"> Abonné
+                                            </label>
+                                            <label class="radio-inline" style="color: #fff">
+                                                <input type="radio" name="role" id="radioAd" value="admin"> Admin
+                                            </label>
+                                        </div>
+                                        <button type="submit" id="boutonValAjout" class="btn btn-sign-log" ng-click="update(user)">Valider !</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <h3 style="color: #fff"><i class="fa fa-users"></i>&nbsp; Utilisateurs</h3>
+                        <div ng-repeat="user in Allusers">
+                            <div class="col-lg-6" >
+                                <div class="media" style="color: #fff">
+                                    <div class="media-left media-middle">
+                                        <input ng-if="user.local" type="text" style="display: none" ng-model="mailUser.mail" ng-init="mailUser.mail=user.local.mail"/>
+                                        <a href="#" ng-click="showUser(user)">
+                                            <div style="width: 60px">
+                                                <img class="media-object" src="/img/avatar.png" alt="..." style="width: 100%">
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href=""><h4 class="media-heading" style="color: #d5d5d5" ng-if="user.local">
+                                            <i class="fa fa-user"></i> &nbsp;{{ user.local.firstname }} {{ user.local.lastname }}
+                                        </h4></a>
+                                        <h4 class="media-heading" style="color: #d5d5d5" ng-if="user.facebook">
+                                            <i class="fa fa-user"></i> &nbsp;{{ user.facebook.name }}
+                                        </h4>
+                                        <p ng-if="user.local">MAIL : {{ user.local.mail }}</p>
+                                        <p ng-if="user.local">ROLE : {{ user.local.accessLvl }}</p>
+                                        <p ng-if="user.facebook">ID : {{ user.facebook.id }}</p>
+                                        <p ng-if="user.facebook" style="color: #ac2925">logged by Facebook. not editable</p>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 20px" scroll-glue></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#confirmpasswd").keyup(function () {
+            if ($(this).val() !== $('#passwd').val()) {
+                $(this).css({
+                    borderColor: 'red'
+                });
+                $('#verifMdpConfirm').html("<span class='help-block alert-danger'>Les mots de passe ne correspondent pas</span>");
+                $("#boutonValAjout").attr("disabled", true);
+            }
+            else {
+                $(this).css({
+                    borderColor: 'green',
+                    color: '#081038'
+                });
+                $('#mdp').css({
+                    borderColor: 'green'
+                });
+                $('#verifMdpConfirm').empty();
+                $("#boutonValAjout").attr("disabled", false);
+            }
+        });
+    });
+</script>

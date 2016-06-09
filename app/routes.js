@@ -267,7 +267,17 @@ module.exports = function(app, passport, multer) {
         }));
     /**************** End Facebook Login ****************/
 
-
+    /**************** users ****************/
+    app.get('/api/admin/users/', function(req, res) {
+        User.find(function(err, users) {
+            if (err) {
+                res.send(err);
+                console.log(err);
+            }
+            res.json({ users: users, user: req.user});
+        });
+    });
+    /************** End users *************/
 
 
     app.get('*', function(req, res) {
@@ -281,8 +291,9 @@ function generateHash(password) {
 }
 /** check if user is logged in **/
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
+    if (typeof req.user !== 'undefined' && req.user)
         return next();
+
     console.log('redirect');
-    res.redirect('/login');
+    res.status(204).redirect('/login');
 }

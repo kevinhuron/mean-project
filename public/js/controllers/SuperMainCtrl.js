@@ -3,5 +3,6 @@
  */
 angular.module('SuperMainCtrl', []).controller('SuperMainController', function($scope, cfpLoadingBar) {
     $scope.hidden = true;
+    $scope.hiddenAdmin = true;
     $scope.tohide = true;
 });
