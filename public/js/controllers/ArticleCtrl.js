@@ -1,7 +1,7 @@
 /**
  * Created by kevinhuron on 01/06/2016.
  */
-angular.module('ArticleCtrl', ['ArticleService']).controller('ArticleController', function($scope,$routeParams,Article,cfpLoadingBar) {
+angular.module('ArticleCtrl', ['ArticleService']).controller('ArticleController', function($scope,$routeParams,$route,Article,cfpLoadingBar) {
     Article.get($routeParams.idA).then(function(oneArticle) {
         cfpLoadingBar.start();
         /** ****** **/
@@ -12,9 +12,27 @@ angular.module('ArticleCtrl', ['ArticleService']).controller('ArticleController'
         }
         var article = oneArticle.data.article;
         $scope.allArticles = article;
+        $scope.commentaire.idA = article.idA;
         /** ****** **/
         cfpLoadingBar.complete();
     });
+
+    $scope.commentaire = {};
+    $scope.insertCom = function () {
+        $scope.contentRequired = '';
+        /** ****** **/
+        if (!$scope.commentaire.content) {
+            $scope.contentRequired = 'Veuillez saisir un commentaire';
+        } else {
+            console.log($scope.commentaire.idA);
+            var comData = {"content":$scope.commentaire.content, "idA":$scope.commentaire.idA};
+            Article.insertCommentaire(comData).then(function (response) {
+                if (response.data == "OK") {
+                    $route.reload();
+                }
+            });
+        }
+    }
 });
 
 

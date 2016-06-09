@@ -9,6 +9,9 @@ angular.module('ArticleService', []).factory('Article', ['$http', function($http
         getLastId : function() {
             return $http.get('/api/newArticle');
         },
+        insertCommentaire : function(comData) {
+            return $http.put('/api/newCom/', comData);
+        },
 
         create : function(articleData) {
             return $http.post('/api/newArticle', articleData);

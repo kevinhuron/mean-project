@@ -8,6 +8,7 @@ var User = require('./models/User');
 var bcrypt   = require('bcrypt-nodejs');
 var multer  = require('multer');
 var moment  = require('moment');
+moment.locale('fr');
 var path = require('path');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -176,6 +177,20 @@ module.exports = function(app, passport, multer) {
     });
     /**************** End newArticle ****************/
 
+    /**************** newCommentaire ****************/
+    app.put('/api/newCom', function(req, res) {
+        console.log(req.body);
+        var updateData = {"commentaires":{"authorFirstname" : (req.user.local.firstname).toString(),
+            "authorLastname" : (req.user.local.lastname).toString(),
+            "dateCom" : (moment().format('L')).toString(),
+            "contentCom" : (req.body.content).toString()}};
+        Articles.findOneAndUpdate({'idA': parseInt(req.body.idA)}, {$push:updateData}, function(err, com) {
+            if (err) throw err;
+            console.log(com);
+            res.json("OK");
+        });
+    });
+    /**************** End newCommentaire ****************/
 
 
     app.get('*', function(req, res) {
@@ -186,10 +201,16 @@ module.exports = function(app, passport, multer) {
 
 function generateHash(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+}
 /** route middleware to make sure a user is logged in **/
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
+    if (req.user) {
+        next();
+    } else {
+        console.log('OK');
+        res.redirect('/login');
+    }
+    /*if (req.isAuthenticated())
         return next();
-    res.redirect('/login');
+    res.redirect('/login');*/
 }

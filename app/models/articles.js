@@ -3,6 +3,14 @@
  */
 var mongoose = require('mongoose');
 
+/*var Comentaires = mongoose.Schema;
+var comSchema = new Comentaires({
+    authorFirstname : String,
+    authorLastname  : String,
+    dateCom         : String,
+    contentCom      : String
+});*/
+
 var Articles = mongoose.Schema;
 var articlesShcema = new Articles({
     idA             : Number,
@@ -17,12 +25,13 @@ var articlesShcema = new Articles({
         firstname   : String,
         mail        : String
     },
-    commentaires    : {
+    commentaires    : [{
         authorFirstname : String,
         authorLastname  : String,
         dateCom         : String,
-        contentCom      : String
-    }
+        contentCom      : String}]
 });
+
+
 
 module.exports = mongoose.model('mean', articlesShcema, 'Articles');

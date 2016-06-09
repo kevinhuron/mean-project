@@ -29,16 +29,13 @@
                                 <div class="com" style="display: none">
                                     <br>
                                     <form class="form-com">
-                                        <!--<div class="form-group form-inline" >
-                                            <input type="text" class="form-control input-sm" id="nom" placeholder="Nom*">
-                                            <input type="text" class="form-control input-sm" id="prenom" placeholder="Prénom*">
-                                            <input type="email" class="form-control input-sm" id="inputEmail" placeholder="Email*">
-                                        </div>-->
                                         <div class="form-group">
-                                            <textarea class="form-control"  id="textareaCommentaire" placeholder="Votre commentaire*"></textarea>
+                                            <input type="text" style="display: none" ng-model="commentaire.idA"/>
+                                            <textarea class="form-control" ng-model="commentaire.content" id="textareaCommentaire" placeholder="Votre commentaire*"></textarea>
+                                            <span class="help-block alert-danger" ng-show="contentRequired">{{ contentRequired }}</span>
                                         </div>
                                         <small style="color: #fff;">* Champs obligatoires</small><br/><br/>
-                                        <button type="submit" class="btn-sign-log btn-primary">Envoyer</button>
+                                        <button type="submit" class="btn-sign-log btn-primary" ng-click="insertCom(commentaire)">Envoyer</button>
                                     </form>
                                 </div>
                             </div>
@@ -61,7 +58,7 @@
                                             {{ com.contentCom }}
                                         </div>
                                     </div>
-                                    <div style="margin-bottom: 20px"></div>
+                                    <div style="margin-bottom: 20px" scroll-glue></div>
                                 </div>
                             </div>
                         </div>
