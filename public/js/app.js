@@ -12,10 +12,10 @@ angular.module('mean', [
     'ArticleCtrl',
     'ArticleService',
     'NewArticleCtrl',
+    'EditArticleCtrl',
     'UsersCtrl',
     'UsersService',
     'ProfileService',
     'MainService',
     'cfp.loadingBar',
-    'luegg.directives'
 ]);

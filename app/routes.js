@@ -177,6 +177,59 @@ module.exports = function(app, passport, multer) {
     });
     /**************** End newArticle ****************/
 
+    /**************** editArticle ****************/
+    app.post('/api/editArticle', function(req, res) {
+        uploadFile(req, res, function (err) {
+            console.log(req.file);
+            console.log(req.body);
+            var updateDataArticle;
+            if (typeof req.file !== 'undefined' && req.file)
+                updateDataArticle = {"titleA":(req.body.titleA).toString(), "longDescA":(req.body.longDescA).toString(), "contentA":(req.body.contentA).toString(), "img":(req.file.filename).toString()};
+            else
+                updateDataArticle = {"titleA":(req.body.titleA).toString(), "longDescA":(req.body.longDescA).toString(), "contentA":(req.body.contentA).toString()};
+
+            Articles.findOneAndUpdate({'idA': parseInt(req.body.idA)}, updateDataArticle, function(err, com) {
+                if (err) throw err;
+                console.log(com);
+                res.json("OK").redirect('/blog/article/'+req.body.idA);
+            });
+            /*if (err)
+                console.log(err);
+            var articleData;
+            var lastId = (parseInt(req.body.lastId) + 1);
+            if (typeof req.file !== 'undefined' && req.file) {
+                articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
+                    "longDescA":(req.body.longDescA).toString(),
+                    "contentA":(req.body.contentA).toString(),
+                    "date":(moment().format('L')).toString(),
+                    "img":(req.file.filename).toString(),
+                    "author":{"firstname" : (req.user.local.firstname).toString(),
+                        "lastname" : (req.user.local.lastname).toString(),
+                        "mail" : (req.user.local.mail).toString()}};
+            } else {
+                articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
+                    "longDescA":(req.body.longDescA).toString(),
+                    "contentA":(req.body.contentA).toString(),
+                    "date":(moment().format('L')).toString(),
+                    "img":"",
+                    "author":{"firstname" : (req.user.local.firstname).toString(),
+                        "lastname" : (req.user.local.lastname).toString(),
+                        "mail" : (req.user.local.mail).toString()}};
+            }
+            console.log(articleData);
+            /!** create the article **!/
+            var newArticle = new Articles(articleData);
+
+            /!** save the user **!/
+            newArticle.save(function (err) {
+                if (err)
+                    throw err;
+                res.status(204).redirect('/profile');
+            });*/
+        });
+    });
+    /**************** End editArticle ****************/
+
     /**************** newCommentaire ****************/
     app.put('/api/newCom', function(req, res) {
         console.log(req.body);

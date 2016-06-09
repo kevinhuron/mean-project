@@ -44,6 +44,11 @@ angular.module('appRoutes', ['angular-loading-bar']).config(['$routeProvider', '
             controller: 'NewArticleController'
         })
 
+        .when('/article/edit/:idA', {
+            templateUrl: 'views/editArticle.html',
+            controller: 'EditArticleController'
+        })
+
         .when('/404', {
             templateUrl: 'views/404.html'
             //controller: 'UsersController'

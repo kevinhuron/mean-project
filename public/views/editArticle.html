@@ -1,0 +1,67 @@
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div style="width: 100%;margin-left: auto;margin-right: auto;">
+                    <div class="form-box">
+                        <div class="form-top">
+                            <form enctype="multipart/form-data">
+                                <div class="form-top-left">
+                                    <h1 style="color: #fff">Editez votre article</h1>
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-pencil"></i>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="form-bottom">
+                            <form class="registration-form" name="formNewArticle" enctype="multipart/form-data" method="POST" action="/api/editArticle">
+                                <input type="text" style="display: none" ng-model="editarticle.id" id="idA" name="idA"/>
+                                <div class="form-group">
+                                    <input type="text" ng-model="editarticle.title" class="form-control" id="titleA" name="titleA" placeholder="Titre..." required>
+                                    <span class="help-block alert-danger" ng-show="formNewArticle.titleA.$error.required">Titre obligatoire</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" ng-model="editarticle.longDesc" class="form-control" id="longDescA" name="longDescA" placeholder="Description..." required>
+                                    <span class="help-block alert-danger" ng-show="formNewArticle.longDescA.$error.required">Description obligatoire</span>
+                                </div>
+                                <div class="form-group">
+                                    <textarea ng-model="editarticle.content" class="form-control" id="contentA" name="contentA" placeholder="Contenu..." required></textarea>
+                                    <span class="help-block alert-danger" ng-show="formNewArticle.contentA.$error.required">Contenu obligatoire</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="img" style="color:#fff">Modifier l'image ?</label>
+                                    <img ng-if="editarticle.img" ng-src="img/article/{{ editarticle.img }}" alt="{{ editarticle.img }}"  width="300" height="200"/>
+                                    <br/>
+                                    <br/>
+                                    <input type="file" ng-model="article.img" class="form-control" id="img" name="img" placeholder="Image...">
+                                    <br/>
+                                    <div id="image" style="display: none">
+                                        <img id="preview" src="" alt="" width="300" height="200"/>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-sign-log">J'edit mon article !</button> <!--  ng-click="insertArticle(article)" -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //PREVIEW IMG
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#preview').attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#img").change(function () {
+        $("#image").slideDown();
+        readURL(this);
+    });
+</script>

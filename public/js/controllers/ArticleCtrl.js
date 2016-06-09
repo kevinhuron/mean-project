@@ -42,3 +42,15 @@ angular.module('NewArticleCtrl', ['ArticleService']).controller('NewArticleContr
         $scope.article.lastIdArticle = lastid.data.articles[0].idA;
     });
 });
+
+angular.module('EditArticleCtrl', ['ArticleService']).controller('EditArticleController', function($scope,$routeParams,Article) {
+    $scope.editarticle = {};
+    Article.get($routeParams.idA).then(function(res){
+        console.log(res.data.article);
+        $scope.editarticle.id = res.data.article.idA;
+        $scope.editarticle.title = res.data.article.titleA;
+        $scope.editarticle.longDesc = res.data.article.longDescA;
+        $scope.editarticle.content = res.data.article.contentA;
+        $scope.editarticle.img = res.data.article.img;
+    });
+});

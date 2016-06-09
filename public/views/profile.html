@@ -61,7 +61,7 @@
                                 <img ng-if="!article.img" class="media-object" ng-src="/img/no-img.png" alt="{{article.img}}" style="width: 150px;height: 90px;">
                             </a>
                             <div class="media-body">
-                                <span style="float: right"><button class="btn btn-link" style="color: #fff"><i class="glyphicon glyphicon-edit" style="font-size: 30px"></i></button></span>
+                                <span style="float: right"><a href="/article/edit/{{ article.idA }}"><button class="btn btn-link" style="color: #fff"><i class="glyphicon glyphicon-edit" style="font-size: 30px"></i></button></a></span>
                                 <a class="link-article-home" href="/blog/article/{{ article.idA }}"><h4 class="media-heading">{{ article.titleA }}</h4></a>
                                 <p class="by-author"><i class="glyphicon glyphicon-user"></i> {{ article.author.lastname }} {{ article.author.firstname }} /
                                     <i class="glyphicon glyphicon-calendar"></i> {{ article.date }}
