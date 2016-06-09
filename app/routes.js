@@ -99,13 +99,24 @@ module.exports = function(app, passport, multer) {
 
     /**************** Profile ****************/
     app.get('/api/profile', isLoggedIn, function(req, res) {
-        Articles.find({'author.mail': req.user.local.mail},function(err, article) {
-            if (err) {
-                res.send(err);
-                console.log(err);
-            }
-            res.json({ article: article, user: req.user});
-        });
+        if (req.user.local.mail) {
+            Articles.find({'author.mail': req.user.local.mail},function(err, article) {
+                if (err) {
+                    res.send(err);
+                    console.log(err);
+                }
+                res.json({ article: article, user: req.user});
+            });
+        } else {
+            Articles.find({'author.fbId': req.user.facebook.id},function(err, article) {
+                if (err) {
+                    res.send(err);
+                    console.log(err);
+                }
+                res.json({ article: article, user: req.user});
+            });
+        }
+
     });
     /************** End Profile **************/
 
@@ -139,29 +150,57 @@ module.exports = function(app, passport, multer) {
     /**************** newArticle ****************/
     app.post('/api/newArticle', function(req, res) {
         uploadFile(req, res, function (err) {
+            console.log(req.user);
+            console.log('req.user.local ' + req.user.local);
             console.log(req.file);
+            //req.user.local == "" || req.user.local === "" ||
+            if (req.user.local.mail) {
+                console.log("local");
+            } else {
+                console.log("facebook");
+            }
             if (err)
                 console.log(err);
             var articleData;
             var lastId = (parseInt(req.body.lastId) + 1);
             if (typeof req.file !== 'undefined' && req.file) {
-                articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
-                    "longDescA":(req.body.longDescA).toString(),
-                    "contentA":(req.body.contentA).toString(),
-                    "date":(moment().format('L')).toString(),
-                    "img":(req.file.filename).toString(),
-                    "author":{"firstname" : (req.user.local.firstname).toString(),
-                        "lastname" : (req.user.local.lastname).toString(),
-                        "mail" : (req.user.local.mail).toString()}};
+                if (req.user.local.mail) {
+                    articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
+                        "longDescA":(req.body.longDescA).toString(),
+                        "contentA":(req.body.contentA).toString(),
+                        "date":(moment().format('L')).toString(),
+                        "img":(req.file.filename).toString(),
+                        "author":{"firstname" : (req.user.local.firstname).toString(),
+                            "lastname" : (req.user.local.lastname).toString(),
+                            "mail" : (req.user.local.mail).toString()}};
+                } else {
+                    articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
+                        "longDescA":(req.body.longDescA).toString(),
+                        "contentA":(req.body.contentA).toString(),
+                        "date":(moment().format('L')).toString(),
+                        "img":(req.file.filename).toString(),
+                        "author":{"fbId" : (req.user.facebook.id).toString(),
+                            "fbName" : (req.user.facebook.name).toString()}};
+                }
             } else {
-                articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
-                    "longDescA":(req.body.longDescA).toString(),
-                    "contentA":(req.body.contentA).toString(),
-                    "date":(moment().format('L')).toString(),
-                    "img":"",
-                    "author":{"firstname" : (req.user.local.firstname).toString(),
-                        "lastname" : (req.user.local.lastname).toString(),
-                        "mail" : (req.user.local.mail).toString()}};
+                if (req.user.local.mail) {
+                    articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
+                        "longDescA":(req.body.longDescA).toString(),
+                        "contentA":(req.body.contentA).toString(),
+                        "date":(moment().format('L')).toString(),
+                        "img":"",
+                        "author":{"firstname" : (req.user.local.firstname).toString(),
+                            "lastname" : (req.user.local.lastname).toString(),
+                            "mail" : (req.user.local.mail).toString()}};
+                } else {
+                    articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
+                        "longDescA":(req.body.longDescA).toString(),
+                        "contentA":(req.body.contentA).toString(),
+                        "date":(moment().format('L')).toString(),
+                        "img":"",
+                        "author":{"fbId" : (req.user.facebook.id).toString(),
+                            "fbName" : (req.user.facebook.name).toString()}};
+                }
             }
             console.log(articleData);
             /** create the article **/
@@ -193,39 +232,6 @@ module.exports = function(app, passport, multer) {
                 console.log(com);
                 res.json("OK").redirect('/blog/article/'+req.body.idA);
             });
-            /*if (err)
-                console.log(err);
-            var articleData;
-            var lastId = (parseInt(req.body.lastId) + 1);
-            if (typeof req.file !== 'undefined' && req.file) {
-                articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
-                    "longDescA":(req.body.longDescA).toString(),
-                    "contentA":(req.body.contentA).toString(),
-                    "date":(moment().format('L')).toString(),
-                    "img":(req.file.filename).toString(),
-                    "author":{"firstname" : (req.user.local.firstname).toString(),
-                        "lastname" : (req.user.local.lastname).toString(),
-                        "mail" : (req.user.local.mail).toString()}};
-            } else {
-                articleData = {"idA":parseInt(lastId),"titleA":(req.body.titleA).toString(),
-                    "longDescA":(req.body.longDescA).toString(),
-                    "contentA":(req.body.contentA).toString(),
-                    "date":(moment().format('L')).toString(),
-                    "img":"",
-                    "author":{"firstname" : (req.user.local.firstname).toString(),
-                        "lastname" : (req.user.local.lastname).toString(),
-                        "mail" : (req.user.local.mail).toString()}};
-            }
-            console.log(articleData);
-            /!** create the article **!/
-            var newArticle = new Articles(articleData);
-
-            /!** save the user **!/
-            newArticle.save(function (err) {
-                if (err)
-                    throw err;
-                res.status(204).redirect('/profile');
-            });*/
         });
     });
     /**************** End editArticle ****************/
@@ -233,10 +239,16 @@ module.exports = function(app, passport, multer) {
     /**************** newCommentaire ****************/
     app.put('/api/newCom', function(req, res) {
         console.log(req.body);
-        var updateData = {"commentaires":{"authorFirstname" : (req.user.local.firstname).toString(),
-            "authorLastname" : (req.user.local.lastname).toString(),
-            "dateCom" : (moment().format('L')).toString(),
-            "contentCom" : (req.body.content).toString()}};
+        if (req.user.local.mail) {
+            var updateData = {"commentaires":{"authorFirstname" : (req.user.local.firstname).toString(),
+                "authorLastname" : (req.user.local.lastname).toString(),
+                "dateCom" : (moment().format('L')).toString(),
+                "contentCom" : (req.body.content).toString()}};
+        } else {
+            var updateData = {"commentaires":{"fbName" : (req.user.facebook.name).toString(),
+                "dateCom" : (moment().format('L')).toString(),
+                "contentCom" : (req.body.content).toString()}};
+        }
         Articles.findOneAndUpdate({'idA': parseInt(req.body.idA)}, {$push:updateData}, function(err, com) {
             if (err) throw err;
             console.log(com);
@@ -244,6 +256,18 @@ module.exports = function(app, passport, multer) {
         });
     });
     /**************** End newCommentaire ****************/
+
+    /**************** Facebook Login ****************/
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+
+    app.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect : '/profile',
+            failureRedirect : '/'
+        }));
+    /**************** End Facebook Login ****************/
+
+
 
 
     app.get('*', function(req, res) {
@@ -255,15 +279,10 @@ module.exports = function(app, passport, multer) {
 function generateHash(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 }
-/** route middleware to make sure a user is logged in **/
+/** check if user is logged in **/
 function isLoggedIn(req, res, next) {
-    if (req.user) {
-        next();
-    } else {
-        console.log('OK');
-        res.redirect('/login');
-    }
-    /*if (req.isAuthenticated())
+    if (req.isAuthenticated())
         return next();
-    res.redirect('/login');*/
+    console.log('redirect');
+    res.redirect('/login');
 }

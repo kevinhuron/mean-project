@@ -5,11 +5,14 @@ angular.module('ArticleCtrl', ['ArticleService']).controller('ArticleController'
     Article.get($routeParams.idA).then(function(oneArticle) {
         cfpLoadingBar.start();
         /** ****** **/
-        if (oneArticle.data.user) {
-            $scope.$parent.hidden = false;
-            $scope.$parent.tohide = false;
-            $scope.$parent.username = oneArticle.data.user.local.firstname;
+        console.log(oneArticle);
+
+        if (oneArticle.data.article != "") {
+            $scope.userArticle = oneArticle.data.article;
+        } else {
+            $scope.noArticle = "Aucun article";
         }
+
         var article = oneArticle.data.article;
         $scope.allArticles = article;
         $scope.commentaire.idA = article.idA;

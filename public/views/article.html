@@ -51,8 +51,12 @@
                                             </div>
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="media-heading" style="color: #d5d5d5">
+                                            <h4 class="media-heading" style="color: #d5d5d5" ng-if="com.authorFirstname">
                                                 <i class="fa fa-user"></i> &nbsp;{{ com.authorFirstname }} {{ com.authorLastname }}
+                                                &nbsp;<i class="fa fa-calendar"></i> &nbsp;{{ com.dateCom }}
+                                            </h4>
+                                            <h4 class="media-heading" style="color: #d5d5d5" ng-if="com.fbName">
+                                                <i class="fa fa-user"></i> &nbsp;{{ com.fbName }}
                                                 &nbsp;<i class="fa fa-calendar"></i> &nbsp;{{ com.dateCom }}
                                             </h4>
                                             {{ com.contentCom }}

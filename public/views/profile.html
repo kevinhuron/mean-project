@@ -9,7 +9,7 @@
                                 <div class="form-top">
                                     <div class="form-top-left">
                                         <h3>Bonjour {{ username }} !</h3>
-                                        <p>Vous pouvez éditer votre profile ici.</p>
+                                        <p ng-if="user.mail">Vous pouvez éditer votre profile ici.</p>
                                         <form action="/api/logout">
                                             <button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-log-out"></i>&nbsp; Déconnexion</button>
                                         </form>
@@ -18,7 +18,7 @@
                                         <i class="fa fa-pencil"></i>
                                     </div>
                                 </div>
-                                <div class="form-bottom">
+                                <div class="form-bottom" ng-if="user.mail">
                                     <form  class="registration-form">
                                         <div class="alert alert-success text-center" role="alert" ng-show="registrationSuccess">{{ updateSuccess }}</div>
                                         <div class="alert alert-danger text-center" role="alert" ng-show="registrationFailed">{{ updateFailed }}</div>

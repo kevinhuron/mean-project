@@ -11,7 +11,10 @@
                 <div class="block-title">
                     <a class="link-article-blog" href="/blog/article/{{ article.idA }}"><h2>{{ article.titleA }}</h2></a>
                     <p><small>{{ article.longDescA }}</small></p>
-                    <p class="by-author"><small><i class="glyphicon glyphicon-user"></i> {{ article.author[0]['lastname'] }} {{ article.author[0]['firstname'] }} /
+                    <p class="by-author" ng-if="article.author.firstname"><small><i class="glyphicon glyphicon-user"></i> {{ article.author.lastname }} {{ article.author.firstname }} /
+                        <i class="glyphicon glyphicon-calendar"></i> {{ article.date }}
+                    </small></p>
+                    <p class="by-author" ng-if="article.author.fbName"><small><i class="glyphicon glyphicon-user"></i> {{ article.author.fbName }} /
                         <i class="glyphicon glyphicon-calendar"></i> {{ article.date }}
                     </small></p>
                 </div>

@@ -23,13 +23,16 @@ var articlesShcema = new Articles({
     author          : {
         lastname    : String,
         firstname   : String,
-        mail        : String
+        mail        : String,
+        fbId        : String,
+        fbName      : String
     },
     commentaires    : [{
         authorFirstname : String,
         authorLastname  : String,
         dateCom         : String,
-        contentCom      : String}]
+        contentCom      : String,
+        fbName          : String}]
 });
 
 

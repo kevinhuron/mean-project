@@ -34,13 +34,17 @@
                     </div>
                     <div class="social-login">
                         <h3>...ou connectez-vous avec :</h3>
+                        <div style="display: none" id="loader"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></div>
                         <div class="social-login-buttons">
-                            <a class="btn btn-link-2" href="#">
-                                <i class="fa fa-facebook"></i> Facebook
-                            </a>
-                            <a class="btn btn-link-2" href="#">
+                            <form action="/auth/facebook">
+                                <button class="btn btn-link-2" id="btn-log-fb" type="submit">
+                                    <i class="fa fa-facebook"></i> Facebook
+                                </button>
+                            </form>
+
+                            <!--<a class="btn btn-link-2" href="#">
                                 <i class="fa fa-twitter"></i> Twitter
-                            </a>
+                            </a>-->
                         </div>
                     </div>
                 </div>
@@ -48,3 +52,23 @@
         </div>
     </div>
 </div>
+<script>
+    $("#btn-log-fb").click(function(){
+       $("#loader").show();
+    });
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '273928426290541',
+            xfbml      : true,
+            version    : 'v2.6'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>

@@ -5,19 +5,29 @@ angular.module('ProfileCtrl', ['ProfileService']).controller('ProfileController'
     profile.get().then(function(data) {
         cfpLoadingBar.start();
         /** ****** **/
-        if (data.data.user) {
+        console.log(data);
+        if (data.data.user.local) {
             $scope.$parent.hidden = false;
             $scope.$parent.tohide = false;
             $scope.$parent.username = data.data.user.local.firstname;
-            /** ****** **/
+
             $scope.user.firstname = data.data.user.local.lastname;
             $scope.user.lastname = data.data.user.local.firstname;
             $scope.user.mail = data.data.user.local.mail;
-        }
-        if (data.data.article != "") {
-            $scope.userArticle = data.data.article;
-        } else {
-            $scope.noArticle = "Aucun article";
+            if (data.data.article != "") {
+                $scope.userArticle = data.data.article;
+            } else {
+                $scope.noArticle = "Aucun article";
+            }
+        } else if (data.data.user.facebook) {
+            $scope.$parent.hidden = false;
+            $scope.$parent.tohide = false;
+            $scope.$parent.username = data.data.user.facebook.name;
+            if (data.data.article != "") {
+                $scope.userArticle = data.data.article;
+            } else {
+                $scope.noArticle = "Aucun article";
+            }
         }
         /** ****** **/
         cfpLoadingBar.complete();

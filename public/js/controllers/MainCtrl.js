@@ -4,9 +4,21 @@
 angular.module('MainCtrl', ['MainService']).controller('MainController', function($scope, LastArticle, cfpLoadingBar) {
     LastArticle.get().then(function(home) {
         if (home.data.user) {
-            $scope.$parent.hidden = false;
-            $scope.$parent.tohide = false;
-            $scope.$parent.username = home.data.user.local.firstname;
+            if (home.data.user.local) {
+                $scope.$parent.hidden = false;
+                $scope.$parent.tohide = false;
+                $scope.$parent.username = home.data.user.local.firstname;
+
+            } else if (home.data.user.facebook) {
+                $scope.$parent.hidden = false;
+                $scope.$parent.tohide = false;
+                $scope.$parent.username = home.data.user.facebook.name;
+            }
+            if (home.data.article != "") {
+                $scope.userArticle = home.data.article;
+            } else {
+                $scope.noArticle = "Aucun article";
+            }
         }
         cfpLoadingBar.start();
         /** ID **/
