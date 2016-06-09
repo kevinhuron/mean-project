@@ -11,6 +11,7 @@ angular.module('mean', [
     'BlogService',
     'ArticleCtrl',
     'ArticleService',
+    'NewArticleCtrl',
     'UsersCtrl',
     'UsersService',
     'ProfileService',

@@ -5,7 +5,8 @@
         <div ng-repeat="article in allArticles" class="col-lg-4 col-md-4 ">
             <div class="all-article">
                 <a href="/blog/article/{{ article.idA }}">
-                    <img ng-src="img/article/{{ article.img }}" alt="" class="thumb" style="width: 340px;height: 340px;">
+                    <img ng-if="article.img" ng-src="img/article/{{ article.img }}" alt="" class="thumb" style="width: 340px;height: 340px;">
+                    <img ng-if="!article.img" ng-src="img/no-img.png" alt="" class="thumb" style="width: 340px;height: 340px;">
                 </a>
                 <div class="block-title">
                     <a class="link-article-blog" href="/blog/article/{{ article.idA }}"><h2>{{ article.titleA }}</h2></a>

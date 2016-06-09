@@ -2,10 +2,6 @@
  * Created by kevinhuron on 01/06/2016.
  */
 angular.module('ArticleCtrl', ['ArticleService']).controller('ArticleController', function($scope,$routeParams,Article,cfpLoadingBar) {
-    $scope.article = {};
-    Article.getLastId().then(function(lastid){
-        $scope.article.lastIdArticle = lastid.data.articles[0].idA;
-    });
     Article.get($routeParams.idA).then(function(oneArticle) {
         cfpLoadingBar.start();
         /** ****** **/
@@ -18,5 +14,13 @@ angular.module('ArticleCtrl', ['ArticleService']).controller('ArticleController'
         $scope.allArticles = article;
         /** ****** **/
         cfpLoadingBar.complete();
+    });
+});
+
+
+angular.module('NewArticleCtrl', ['ArticleService']).controller('NewArticleController', function($scope,Article) {
+    $scope.article = {};
+    Article.getLastId().then(function(lastid){
+        $scope.article.lastIdArticle = lastid.data.articles[0].idA;
     });
 });

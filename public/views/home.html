@@ -86,7 +86,8 @@
         <div class="col-md-5 col-lg-5">
             <div class="featured-article">
                 <a href="/blog/article/{{ id1 }}">
-                    <img ng-src="{{img1}}" alt="" class="thumb" style="width: 482px;height: 350px;">
+                    <img ng-if="img1" ng-src="img/article/{{img1}}" alt="" class="thumb" style="width: 482px;height: 350px;">
+                    <img ng-if="!img1" ng-src="/img/no-img.png" alt="" class="thumb" style="width: 482px;height: 350px;">
                 </a>
                 <div class="block-title">
                     <h2>{{ titleOne }}</h2>
@@ -101,7 +102,8 @@
             <ul class="media-list main-list">
                 <li class="media">
                     <a class="pull-left" href="/blog/article/{{ id2 }}">
-                        <img class="media-object" ng-src="{{img2}}" alt="..." style="width: 150px;height: 90px;">
+                        <img ng-if="img2" class="media-object" ng-src="img/article/{{img2}}" alt="..." style="width: 150px;height: 90px;">
+                        <img ng-if="!img2" class="media-object" ng-src="img/article/no-img.png" alt="..." style="width: 150px;height: 90px;">
                     </a>
                     <div class="media-body">
                         <a class="link-article-home" href="/blog/article/{{ id2 }}"><h4 class="media-heading">{{ titleTwo }}</h4></a>
@@ -113,7 +115,8 @@
                 </li>
                 <li class="media">
                     <a class="pull-left" href="/blog/article/{{ id3 }}">
-                        <img class="media-object" ng-src="{{img3}}" alt="..."  style="width: 150px;height: 90px;">
+                        <img ng-if="img3" class="media-object" ng-src="img/article/{{img3}}" alt="..."  style="width: 150px;height: 90px;">
+                        <img ng-if="!img3" class="media-object" ng-src="img/article/no-img.png" alt="..." style="width: 150px;height: 90px;">
                     </a>
                     <div class="media-body">
                         <a class="link-article-home" href="/blog/article/{{ id3 }}"><h4 class="media-heading">{{ titleTree }}</h4></a>
@@ -125,7 +128,8 @@
                 </li>
                 <li class="media">
                     <a class="pull-left" href="/blog/article/{{ id4 }}">
-                        <img class="media-object" ng-src="{{img4}}" alt="..."  style="width: 150px;height: 90px;">
+                        <img ng-if="img4" class="media-object" ng-src="img/article/{{img4}}" alt="..."  style="width: 150px;height: 90px;">
+                        <img ng-if="!img4" class="media-object" ng-src="img/article/no-img.png" alt="..." style="width: 150px;height: 90px;">
                     </a>
                     <div class="media-body">
                         <a class="link-article-home" href="/blog/article/{{ id4 }}"><h4 class="media-heading">{{ titleFour }}</h4></a>

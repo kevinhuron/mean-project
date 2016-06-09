@@ -35,10 +35,10 @@ angular.module('MainCtrl', ['MainService']).controller('MainController', functio
         $scope.dateTree = home.data.articles[2]['date'];
         $scope.dateFour = home.data.articles[3]['date'];
         /** IMG **/
-        $scope.img1 = 'img/article/'+home.data.articles[0]['img'];
-        $scope.img2 = 'img/article/'+home.data.articles[1]['img'];
-        $scope.img3 = 'img/article/'+home.data.articles[2]['img'];
-        $scope.img4 = 'img/article/'+home.data.articles[3]['img'];
+        $scope.img1 = home.data.articles[0]['img'];
+        $scope.img2 = home.data.articles[1]['img'];
+        $scope.img3 = home.data.articles[2]['img'];
+        $scope.img4 = home.data.articles[3]['img'];
         cfpLoadingBar.complete();
     });
     $scope.image1 = 'img/img-1.jpg';

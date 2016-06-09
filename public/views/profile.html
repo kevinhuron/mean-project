@@ -56,7 +56,9 @@
                     <ul class="media-list main-list">
                         <li class="media" ng-repeat="article in userArticle">
                             <a class="pull-left" href="/blog/article/{{ article.idA }}">
-                                <img class="media-object" ng-src="/img/article/{{article.img}}" alt="{{article.img}}" style="width: 150px;height: 90px;">
+                                <div ></div>
+                                <img ng-if="article.img" class="media-object" ng-src="/img/article/{{article.img}}" alt="{{article.img}}" style="width: 150px;height: 90px;">
+                                <img ng-if="!article.img" class="media-object" ng-src="/img/no-img.png" alt="{{article.img}}" style="width: 150px;height: 90px;">
                             </a>
                             <div class="media-body">
                                 <span style="float: right"><button class="btn btn-link" style="color: #fff"><i class="glyphicon glyphicon-edit" style="font-size: 30px"></i></button></span>

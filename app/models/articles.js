@@ -16,6 +16,12 @@ var articlesShcema = new Articles({
         lastname    : String,
         firstname   : String,
         mail        : String
+    },
+    commentaires    : {
+        authorFirstname : String,
+        authorLastname  : String,
+        dateCom         : String,
+        contentCom      : String
     }
 });
 

@@ -53,7 +53,7 @@ module.exports = function(app, passport, multer) {
                 res.send(err);
                 console.log(err);
             }
-            res.json({ article: article, user: req.user});
+            res.json({ article: article, user: req.user });
         });
     });
     /****************** End article page ******************/

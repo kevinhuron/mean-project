@@ -41,7 +41,7 @@ angular.module('appRoutes', ['angular-loading-bar']).config(['$routeProvider', '
 
         .when('/newArticle', {
             templateUrl: 'views/newArticle.html',
-            controller: 'ArticleController'
+            controller: 'NewArticleController'
         })
 
         .when('/404', {
