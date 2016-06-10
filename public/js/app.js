@@ -19,5 +19,5 @@ angular.module('mean', [
     'UsersService',
     'ProfileService',
     'MainService',
-    'cfp.loadingBar',
+    'cfp.loadingBar'
 ]);

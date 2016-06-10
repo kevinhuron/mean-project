@@ -54,7 +54,7 @@ angular.module('appRoutes', ['angular-loading-bar']).config(['$routeProvider', '
             controller: 'AdminUsersController'
         })
 
-        .when('/admin/users/:mailUser', {
+        .when('/admin/users', {
             templateUrl: 'views/adminUsers.html',
             controller: 'AdminUsersController'
         })
