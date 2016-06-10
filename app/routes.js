@@ -123,7 +123,7 @@ module.exports = function(app, passport, multer) {
     /**************** Update Profile ****************/
     app.put('/api/updateUser', isLoggedIn, function(req, res) {
         var updateData;
-        if (req.user.local.accessLvl == "admin") {
+        if (req.body.accessLvl == "admin") {
             if (typeof req.body.password !== 'undefined' && req.body.password)
                 updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"admin", "local.passwd":generateHash((req.body.password).toString())};
             else
@@ -134,7 +134,7 @@ module.exports = function(app, passport, multer) {
             else
                 updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne"};
         }
-        User.findOneAndUpdate({'local.mail': req.user.local.mail}, updateData, function(err, user) {
+        User.findOneAndUpdate({'local.mail': req.body.mail}, updateData, function(err, user) {
             if (err) throw err;
             console.log(user);
             res.json("OK");
@@ -226,8 +226,6 @@ module.exports = function(app, passport, multer) {
     /**************** editArticle ****************/
     app.post('/api/editArticle', function(req, res) {
         uploadFile(req, res, function (err) {
-            console.log(req.file);
-            console.log(req.body);
             var updateDataArticle;
             if (typeof req.file !== 'undefined' && req.file)
                 updateDataArticle = {"titleA":(req.body.titleA).toString(), "longDescA":(req.body.longDescA).toString(), "contentA":(req.body.contentA).toString(), "img":(req.file.filename).toString()};
@@ -287,17 +285,29 @@ module.exports = function(app, passport, multer) {
     /************** End users *************/
 
     /**************** UserInfo ****************/
-    app.get('/api/admin/userInfo/', function(req, res) {
-        console.log(req);
-        /*User.findOne({'local.mail': (req.body.mail).toString()},function(err, theuser) {
+    app.get('/api/admin/users/:userMail', function(req, res) {
+        User.findOne({'local.mail': (req.params.userMail).toString()},function(err, theuser) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
             res.json({ theuser: theuser, user: req.user });
-        });*/
+        });
     });
     /************** End UserInfo *************/
+
+    /**************** Delete Article ****************/
+    app.delete('/api/article/delete/', function(req, res) {
+        console.log(req);
+        console.log('params ' + req.params);
+        console.log('body ' + req.body);
+        /*Articles.findOneAndRemove({'idA': parseInt(req.params)}, function(err, com) {
+            if (err) throw err;
+            console.log(com);
+            res.json("OK");
+        });*/
+    });
+    /************** End Delete Article *************/
 
 
     app.get('*', function(req, res) {

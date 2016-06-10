@@ -20,7 +20,7 @@ angular.module('ProfileService', []).factory('profile', ['$http', function($http
         },
 
         delete : function(id) {
-            return $http.delete('/api/nerds/' + id);
+            return $http.delete('/api/article/delete/' + id);
         }
     }
 }]);

@@ -8,7 +8,7 @@ angular.module('AdminService', []).factory('Admin', ['$http', function($http) {
         },
         getInfoByMail : function(data) {
             //console.log('data ' + data);
-            return $http.get('/api/admin/userInfo/'+data);
+            return $http.get('/api/admin/users/'+data);
         },
         getLastId : function() {
             return $http.get('/api/newArticle');
@@ -16,7 +16,9 @@ angular.module('AdminService', []).factory('Admin', ['$http', function($http) {
         insertCommentaire : function(comData) {
             return $http.put('/api/newCom/', comData);
         },
-
+        update : function(userData) {
+            return $http.put('/api/updateUser', userData);
+        },
         create : function(articleData) {
             return $http.post('/api/newArticle', articleData);
         },

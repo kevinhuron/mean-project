@@ -1,11 +1,14 @@
 /**
  * Created by kevinhuron on 01/06/2016.
  */
-angular.module('ProfileCtrl', ['ProfileService']).controller('ProfileController', function($scope, $route, profile, cfpLoadingBar) {
+angular.module('ProfileCtrl', ['ProfileService']).controller('ProfileController', function($scope, $route, $location, profile, cfpLoadingBar) {
     profile.get().then(function(data) {
         cfpLoadingBar.start();
         /** ****** **/
         console.log(data);
+        if (!data.data.user) {
+            $location.path('/login');
+        }
         if (data.data.user.local) {
             $scope.$parent.hidden = false;
             $scope.$parent.tohide = false;
@@ -50,6 +53,16 @@ angular.module('ProfileCtrl', ['ProfileService']).controller('ProfileController'
         /** ****** **/
         userData = {"firstname":$scope.user.firstname, "lastname":$scope.user.lastname, "mail":$scope.user.mail, "password":$scope.user.confirmpassword};
         profile.update(userData);
+        $route.reload();
+        /** ****** **/
+        cfpLoadingBar.complete();
+    };
+
+    $scope.deleteArticle = function(idA) {
+        console.log(idA);
+        cfpLoadingBar.start();
+        /** ****** **/
+        profile.delete(idA);
         $route.reload();
         /** ****** **/
         cfpLoadingBar.complete();
