@@ -8,11 +8,8 @@
                             <div class="form-box">
                                 <div class="form-top">
                                     <div class="form-top-left">
-                                        <h3>Bonjour {{ username }} !</h3>
+                                        <h3>Editez !</h3>
                                         <p  >Vous pouvez éditer le profile des autres utilisateurs.</p>
-                                        <form action="/api/logout">
-                                            <button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-log-out"></i>&nbsp; Déconnexion</button>
-                                        </form>
                                     </div>
                                     <div class="form-top-right">
                                         <i class="fa fa-pencil"></i>
@@ -63,8 +60,8 @@
                             <div class="col-lg-6" >
                                 <div class="media" style="color: #fff">
                                     <div class="media-left media-middle">
-                                        <input ng-if="user.local" type="text" style="display: none" ng-model="mailUser.mail" ng-init="mailUser.mail=user.local.mail"/>
-                                        <a href="#" ng-click="showUser(user)">
+                                        <!--<input ng-if="user.local" type="text" style="display: none" ng-model="mailUser.mail" ng-init="mailUser.mail=user.local.mail"/>-->
+                                        <a href="#" ng-click="showUser(user.local.mail)">
                                             <div style="width: 60px">
                                                 <img class="media-object" src="/img/avatar.png" alt="..." style="width: 100%">
                                             </div>

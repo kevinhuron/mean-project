@@ -123,10 +123,17 @@ module.exports = function(app, passport, multer) {
     /**************** Update Profile ****************/
     app.put('/api/updateUser', isLoggedIn, function(req, res) {
         var updateData;
-        if (typeof req.body.password !== 'undefined' && req.body.password)
-            updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne", "local.passwd":generateHash((req.body.password).toString())};
-        else
-            updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne"};
+        if (req.user.local.accessLvl == "admin") {
+            if (typeof req.body.password !== 'undefined' && req.body.password)
+                updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"admin", "local.passwd":generateHash((req.body.password).toString())};
+            else
+                updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"admin"};
+        } else {
+            if (typeof req.body.password !== 'undefined' && req.body.password)
+                updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne", "local.passwd":generateHash((req.body.password).toString())};
+            else
+                updateData = {"local.firstname":(req.body.lastname).toString(), "local.lastname":(req.body.firstname).toString(), "local.mail":req.body.mail, "local.accessLvl":"abonne"};
+        }
         User.findOneAndUpdate({'local.mail': req.user.local.mail}, updateData, function(err, user) {
             if (err) throw err;
             console.log(user);
@@ -278,6 +285,19 @@ module.exports = function(app, passport, multer) {
         });
     });
     /************** End users *************/
+
+    /**************** UserInfo ****************/
+    app.get('/api/admin/userInfo/', function(req, res) {
+        console.log(req);
+        /*User.findOne({'local.mail': (req.body.mail).toString()},function(err, theuser) {
+            if (err) {
+                res.send(err);
+                console.log(err);
+            }
+            res.json({ theuser: theuser, user: req.user });
+        });*/
+    });
+    /************** End UserInfo *************/
 
 
     app.get('*', function(req, res) {

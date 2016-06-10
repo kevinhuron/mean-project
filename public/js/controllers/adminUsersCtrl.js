@@ -12,8 +12,14 @@ angular.module('AdminUsersCtrl', ['AdminService']).controller('AdminUsersControl
         cfpLoadingBar.complete();
     });
 
-    $scope.mailUser = {};
-    $scope.showUser = function() {
-        console.log($scope.mailUser);
+    $scope.showUser = function(mail) {
+        console.log(mail);
+        var email = {"mail":mail};
+        console.log(email);
+        Admin.getInfoByMail(email).then(function(theuser){
+            cfpLoadingBar.start();
+            console.log(theuser);
+            cfpLoadingBar.complete();
+        });
     }
 });

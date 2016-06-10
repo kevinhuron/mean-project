@@ -6,6 +6,10 @@ angular.module('AdminService', []).factory('Admin', ['$http', function($http) {
         get : function() {
             return $http.get('/api/admin/users/');
         },
+        getInfoByMail : function(data) {
+            //console.log('data ' + data);
+            return $http.get('/api/admin/userInfo/'+data);
+        },
         getLastId : function() {
             return $http.get('/api/newArticle');
         },
