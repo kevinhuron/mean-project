@@ -22,8 +22,18 @@ angular.module('BlogCtrl', ['BlogService']).controller('BlogController', functio
                 $scope.noArticle = "Aucun article";
             }*/
         }
+        $scope.loading = false;
         var allArticles = articles.data.articles;
         $scope.allArticles = allArticles;
+
+        $scope.data = $scope.allArticles.slice(0, 9);
+        $scope.getMoreData = function () {
+            $scope.data = $scope.allArticles.slice(0, $scope.data.length + 6);
+            $scope.loading = true;
+        };
+
+
+
         cfpLoadingBar.complete();
     });
 });

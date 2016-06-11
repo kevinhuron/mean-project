@@ -1,7 +1,7 @@
 /**
  * Created by kevinhuron on 25/05/2016.
  */
-angular.module('appRoutes', ['angular-loading-bar']).config(['$routeProvider', '$locationProvider', 'cfpLoadingBarProvider',
+angular.module('appRoutes', ['angular-loading-bar', 'infinite-scroll']).config(['$routeProvider', '$locationProvider', 'cfpLoadingBarProvider',
     function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeBar = true;
         cfpLoadingBarProvider.includeSpinner = false;

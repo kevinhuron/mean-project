@@ -70,7 +70,10 @@
                                     </a>
                                 </span>
                                 <a class="link-article-home" href="/blog/article/{{ article.idA }}"><h4 class="media-heading">{{ article.titleA }}</h4></a>
-                                <p class="by-author"><i class="glyphicon glyphicon-user"></i> {{ article.author.lastname }} {{ article.author.firstname }} /
+                                <p class="by-author" ng-if="article.author.mail"><i class="glyphicon glyphicon-user"></i> {{ article.author.lastname }} {{ article.author.firstname }} /
+                                    <i class="glyphicon glyphicon-calendar"></i> {{ article.date }}
+                                </p>
+                                <p class="by-author" ng-if="article.author.fbId"><i class="glyphicon glyphicon-user"></i> {{ article.author.fbName }} /
                                     <i class="glyphicon glyphicon-calendar"></i> {{ article.date }}
                                 </p>
                                 <p style="color:#fff"><small>{{ article.longDescA }}</small></p>

@@ -7,7 +7,8 @@
                         <div class="form-top">
                             <div class="form-top-left">
                                 <h3>{{ allArticles.titleA }}</h3>
-                                <p><i class="glyphicon glyphicon-user"></i> {{ allArticles.author.lastname }} {{ allArticles.author.firstname }} &nbsp;
+                                <p><i class="glyphicon glyphicon-user" ng-if="article.author.mail"></i> {{ allArticles.author.lastname }} {{ allArticles.author.firstname }} &nbsp;
+                                <p><i class="glyphicon glyphicon-user" ng-if="article.author.fbId"></i> {{ allArticles.author.fbName }} &nbsp;
                                 <i class="glyphicon glyphicon-calendar"></i> {{ allArticles.date }}</p>
                                 <p>{{ allArticles.longDescA }}</p>
                             </div>
