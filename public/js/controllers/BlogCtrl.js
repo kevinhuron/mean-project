@@ -31,9 +31,6 @@ angular.module('BlogCtrl', ['BlogService']).controller('BlogController', functio
             $scope.data = $scope.allArticles.slice(0, $scope.data.length + 6);
             $scope.loading = true;
         };
-
-
-
         cfpLoadingBar.complete();
     });
 });
