@@ -4,7 +4,7 @@
 // public/js/services/NerdService.js
 angular.module('BlogService', []).factory('Articles', ['$http', function($http) {
     return {
-        get : function() {
+        get : function(offset) {
             return $http.get('/api/blog');
         },
 

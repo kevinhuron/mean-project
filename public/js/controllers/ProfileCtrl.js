@@ -20,17 +20,34 @@ angular.module('ProfileCtrl', ['ProfileService']).controller('ProfileController'
             if (data.data.user.local.accessLvl == "admin") {
                 $scope.$parent.hiddenAdmin = false;
             }
+            $scope.loading = false;
             if (data.data.article != "") {
+                $scope.loading = false;
                 $scope.userArticle = data.data.article;
+                $scope.data = $scope.userArticle.slice(0, 5);
+                $scope.getMoreData = function () {
+                    $scope.loading = true;
+                    $scope.data = $scope.userArticle.slice(0, $scope.data.length + 5);
+                    $scope.loading = false;
+                };
             } else {
                 $scope.noArticle = "Aucun article";
             }
+
         } else if (data.data.user.facebook) {
             $scope.$parent.hidden = false;
             $scope.$parent.tohide = false;
             $scope.$parent.username = data.data.user.facebook.name;
+            $scope.loading = false;
             if (data.data.article != "") {
+                $scope.loading = false;
                 $scope.userArticle = data.data.article;
+                $scope.data = $scope.userArticle.slice(0, 5);
+                $scope.getMoreData = function () {
+                    $scope.loading = true;
+                    $scope.data = $scope.userArticle.slice(0, $scope.data.length + 5);
+                    $scope.loading = false;
+                };
             } else {
                 $scope.noArticle = "Aucun article";
             }
@@ -38,6 +55,7 @@ angular.module('ProfileCtrl', ['ProfileService']).controller('ProfileController'
         /** ****** **/
         cfpLoadingBar.complete();
     });
+
     $scope.user = {};
     var userData;
     $scope.update = function () {

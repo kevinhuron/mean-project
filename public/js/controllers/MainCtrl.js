@@ -3,6 +3,7 @@
  */
 angular.module('MainCtrl', ['MainService']).controller('MainController', function($scope, LastArticle, cfpLoadingBar) {
     LastArticle.get().then(function(home) {
+        console.log(home);
         if (home.data.user) {
             if (home.data.user.local) {
                 $scope.$parent.hidden = false;
@@ -37,10 +38,17 @@ angular.module('MainCtrl', ['MainService']).controller('MainController', functio
         $scope.descTree = home.data.articles[2]['longDescA'];
         $scope.descFour = home.data.articles[3]['longDescA'];
         /** AUTHOR **/
-        $scope.authorOne = home.data.articles[0]['author']['lastname'] + ' ' + home.data.articles[0]['author']['firstname'];
-        $scope.authorTwo = home.data.articles[1]['author']['lastname'] + ' ' + home.data.articles[1]['author']['firstname'];
-        $scope.authorTree = home.data.articles[2]['author']['lastname'] + ' ' + home.data.articles[2]['author']['firstname'];
-        $scope.authorFour = home.data.articles[3]['author']['lastname'] + ' ' + home.data.articles[3]['author']['firstname'];
+        if (home.data.articles[0].author.fbName) {
+            $scope.authorOne = home.data.articles[0].author.fbName;
+            $scope.authorOne = home.data.articles[1].author.fbName;
+            $scope.authorOne = home.data.articles[2].author.fbName;
+            $scope.authorOne = home.data.articles[3].author.fbName;
+        } else {
+            $scope.authorOne = home.data.articles[0].author.lastname + ' ' + home.data.articles[0].author.firstname;
+            $scope.authorTwo = home.data.articles[1].author.lastname + ' ' + home.data.articles[1].author.firstname;
+            $scope.authorTree = home.data.articles[2].author.lastname + ' ' + home.data.articles[2].author.firstname;
+            $scope.authorFour = home.data.articles[3].author.lastname + ' ' + home.data.articles[3].author.firstname;
+        }
         /** DATE **/
         $scope.dateOne = home.data.articles[0]['date'];
         $scope.dateTwo = home.data.articles[1]['date'];

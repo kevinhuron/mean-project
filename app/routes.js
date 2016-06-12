@@ -25,7 +25,9 @@ var uploadFile = upload.single('img');
 module.exports = function(app, passport, multer) {
     /**************** article blog ****************/
     app.get('/api/blog', function(req, res) {
-        Articles.find(function(err, articles) {
+        //var offset = 0;
+        //.skip(parseInt(offset)).limit(9).exec(
+        Articles.find().sort([['idA', -1]]).exec(function(err, articles) {
             if (err) {
                 res.send(err);
                 console.log(err);
@@ -116,7 +118,6 @@ module.exports = function(app, passport, multer) {
                 res.json({ article: article, user: req.user});
             });
         }
-
     });
     /************** End Profile **************/
 
@@ -143,13 +144,13 @@ module.exports = function(app, passport, multer) {
     /**************** End Update Profile ****************/
 
     /********** newArticle page for last id **********/
-    app.get('/api/newArticle', function(req, res){
+    app.get('/api/newArticle', function(req, res) {
         Articles.find().sort([['idA', -1]]).limit(1).exec(function(err, articles) {
             if (err) {
                 res.send(err);
                 console.log(err);
             }
-            res.json({ articles: articles });
+            res.json({ articles: articles, user: req.user });
         });
     });
     /******** End newArticle page for last id **********/

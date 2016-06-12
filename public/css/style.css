@@ -210,9 +210,20 @@ body {
 
 #loading-bar .bar {
     background: #87F;
+    height: 3px;
 }
 #loading-bar .peg {
     box-shadow: 0 0 10px #87F, 0 0 5px #87F;
+}
+
+#loading-bar-spinner {
+    top: 60px;
+    left: 50%;}
+
+#loading-bar-spinner .spinner-icon {
+
+    border-top-color: red;
+    border-left-color: red;
 }
 
 .btn-link-1 {

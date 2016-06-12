@@ -4,7 +4,7 @@
 angular.module('appRoutes', ['angular-loading-bar', 'infinite-scroll']).config(['$routeProvider', '$locationProvider', 'cfpLoadingBarProvider',
     function($routeProvider, $locationProvider, cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeBar = true;
-        cfpLoadingBarProvider.includeSpinner = false;
+        cfpLoadingBarProvider.includeSpinner = true;
         $routeProvider
 
         // home page
